@@ -52,7 +52,7 @@
     box-shadow: inset -7px -7px 12px rgba(255, 255, 255, 40%);
 }
 
-.blog-board {
+.content-container {
     width: 80%;
     height: auto;
     border-radius: 20px;

@@ -13,6 +13,17 @@ if (window.CSS) {
     });
 }
 
+function initTheme() {
+    var page = document.getElementById("page");
+    var theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+        page.classList.remove("light-background");
+        page.classList.add("dark-background");
+    }
+    page.style.display = "block";
+}
+window.onload = initTheme;
+
 function toggleTheme() {
     var page = document.getElementById("page");
     var theme = localStorage.getItem("theme");

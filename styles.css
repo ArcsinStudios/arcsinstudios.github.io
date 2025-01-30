@@ -77,3 +77,57 @@
     left: 50%;
     transform: translateX(-50%);
 }
+
+.glitch-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+ }
+ 
+ .glitch {
+    position: relative;
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+    letter-spacing: 3px;
+    z-index: 1;
+ }
+ 
+ .glitch:before,
+ .glitch:after {
+    display: block;
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+ }
+ 
+ .glitch:before {
+    animation: glitch-it 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    color: cyan;
+    z-index: -1;
+ }
+ 
+ .glitch:after {
+    animation: glitch-it 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+    color: red;
+    z-index: -2;
+ }
+ 
+ @keyframes glitch-it {
+    from {
+       transform: translate(0);
+    }
+    33% {
+       transform: translate(-2px, -1px);
+    }
+    66% {
+       transform: translate(2px, 1px);
+    }
+    to {
+       transform: translate(0);
+    }
+ }

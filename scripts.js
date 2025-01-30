@@ -39,3 +39,14 @@ function toggleTheme() {
 function navigateTo(url) {
     window.location.href = url;
 }
+
+function getInputValue() {
+    var input = document.getElementById("search");
+    return input.value;
+}
+
+function submitJump(event) {
+    if (event.keyCode === 13) {
+        navigateTo(getInputValue());
+    }
+}

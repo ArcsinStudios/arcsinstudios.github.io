@@ -35,3 +35,7 @@ function toggleTheme() {
     page.classList.toggle("light-background");
     page.classList.toggle("dark-background");
 }
+
+function navigateTo(url) {
+    window.location.href = url;
+}

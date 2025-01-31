@@ -2,22 +2,22 @@
     display: none;
 }
 
-.light-background {
-    --start-stop: white;
-    --end-stop: #cbdbfc;
+.light-background,
+.dark-background {
     background-color: var(--end-stop);
     background-image: linear-gradient(var(--start-stop) 70px, var(--end-stop));
     background-repeat: no-repeat;
     transition: --start-stop 0.5s, --end-stop 0.5s;
 }
 
+.light-background {
+    --start-stop: white;
+    --end-stop: #cbdbfc;
+}
+
 .dark-background {
     --start-stop: black;
     --end-stop: #3f3f74;
-    background-color: var(--end-stop);
-    background-image: linear-gradient(var(--start-stop) 70px, var(--end-stop));
-    background-repeat: no-repeat;
-    transition: --start-stop 0.5s, --end-stop 0.5s;
 }
 
 .gradient-text1 {
@@ -30,6 +30,16 @@
     background: linear-gradient(to bottom right, orange, red);
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.lang-button {
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: transparent;
+    color: #9c9c9c;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .theme-button {
@@ -54,16 +64,6 @@
 
 .theme-button:active {
     box-shadow: inset -7px -7px 12px rgba(255, 255, 255, 40%);
-}
-
-.lang-button {
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: transparent;
-    color: #9c9c9c;
-    font-size: 20px;
-    font-weight: bold;
 }
 
 .content-container {
@@ -107,7 +107,7 @@
     text-align: center;
  }
  
- .glitch {
+.glitch {
     position: relative;
     font-size: 40px;
     font-weight: bold;
@@ -116,29 +116,29 @@
     z-index: 1;
  }
  
- .glitch:before,
- .glitch:after {
+.glitch:before,
+.glitch:after {
     display: block;
     content: attr(data-text);
     position: absolute;
     top: 0;
     left: 0;
     opacity: 0.8;
- }
+}
  
- .glitch:before {
+.glitch:before {
     animation: glitch-it 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
     color: cyan;
     z-index: -1;
- }
+}
  
- .glitch:after {
+.glitch:after {
     animation: glitch-it 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
     color: red;
     z-index: -2;
- }
+}
  
- @keyframes glitch-it {
+@keyframes glitch-it {
     from {
        transform: translate(0);
     }
@@ -151,4 +151,4 @@
     to {
        transform: translate(0);
     }
- }
+}

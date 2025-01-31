@@ -37,7 +37,9 @@ function toggleTheme() {
 }
 
 function navigateTo(url) {
-    window.location.href = url;
+    if (!url.includes("arcsin-is-us")) {
+        window.location.href = url;
+    }
 }
 
 function getInputValue() {
@@ -48,5 +50,11 @@ function getInputValue() {
 function submitJump(event) {
     if (event.keyCode === 13) {
         navigateTo(getInputValue());
+    }
+}
+
+function checkEasterEgg() {
+    if (getInputValue() === "BABA IS YOU") {
+        navigateTo("arcsin-is-us/");
     }
 }

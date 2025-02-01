@@ -42,6 +42,10 @@ function navigateTo(url) {
     }
 }
 
+function navigate2(url) {
+    window.location.href = url;
+}
+
 function getInputValue() {
     var input = document.getElementById("search");
     return input.value;
@@ -55,6 +59,6 @@ function submitJump(event) {
 
 function checkEasterEgg() {
     if (getInputValue() === "BABA IS YOU") {
-        navigateTo("arcsin-is-us/");
+        navigate2("arcsin-is-us/");
     }
 }

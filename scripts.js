@@ -37,12 +37,6 @@ function toggleTheme() {
 }
 
 function navigateTo(url) {
-    if (!url.includes("arcsin-is-us")) {
-        window.location.href = url;
-    }
-}
-
-function navigate2(url) {
     window.location.href = url;
 }
 
@@ -52,13 +46,14 @@ function getInputValue() {
 }
 
 function submitJump(event) {
-    if (event.keyCode === 13) {
-        navigateTo(getInputValue());
+    var input = getInputValue();
+    if (event.keyCode === 13 && !input.includes("arcsin-is-us")) {
+        navigateTo(input);
     }
 }
 
 function checkEasterEgg() {
     if (getInputValue() === "BABA IS YOU") {
-        navigate2("arcsin-is-us/");
+        navigateTo("arcsin-is-us/");
     }
 }

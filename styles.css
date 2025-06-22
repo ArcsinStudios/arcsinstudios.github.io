@@ -20,6 +20,14 @@
     --end-stop: #3f3f74;
 }
 
+.logo {
+    width:10%;
+    height:auto;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
 .gradient-text1 {
     background: linear-gradient(to bottom right, blue, cyan);
     background-clip: text;
@@ -30,6 +38,15 @@
     background: linear-gradient(to bottom right, orange, red);
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.adaptive-text {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--end-stop);
+    transition: color 0.5s;
 }
 
 .lang-button {
@@ -89,7 +106,7 @@
     font-weight: bold;
     padding-left: 25px;
     padding-right: 25px;
-    position: absolute;
+    position: fixed;
     bottom: 50px;
     left: 50%;
     transform: translateX(-50%);

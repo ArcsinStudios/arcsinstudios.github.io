@@ -1,17 +1,32 @@
 if (window.CSS) {
     CSS.registerProperty({
-        name: '--start-stop',
-        syntax: '<color>',
+        name: "--start-stop",
+        syntax: "<color>",
         inherits: false,
-        initialValue: 'transparent'
+        initialValue: "transparent"
     });
     CSS.registerProperty({
-        name: '--end-stop',
-        syntax: '<color>',
+        name: "--end-stop",
+        syntax: "<color>",
         inherits: false,
-        initialValue: 'transparent'
+        initialValue: "transparent"
     });
 }
+
+var searchBoxVisible = false;
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === 's') {
+        var searchBox = document.getElementById("search");
+        event.preventDefault();
+        searchBoxVisible = !searchBoxVisible;
+        if (searchBoxVisible) {
+            searchBox.style.display = "none";
+        } else {
+            searchBox.style.display = "block";
+        }
+    }
+});
 
 function initTheme() {
     var page = document.getElementById("page");

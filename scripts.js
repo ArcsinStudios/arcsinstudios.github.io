@@ -30,10 +30,13 @@ document.addEventListener("keydown", function(event) {
 
 function initTheme() {
     var page = document.getElementById("page");
+    var footer = document.getElementById("footer");
     var theme = localStorage.getItem("theme");
     if (theme === "dark") {
         page.classList.remove("light-background");
         page.classList.add("dark-background");
+        footer.classList.remove("black-text");
+        footer.classList.add("white-text");
     }
     page.style.display = "block";
 }
@@ -49,6 +52,8 @@ function toggleTheme() {
     }
     page.classList.toggle("light-background");
     page.classList.toggle("dark-background");
+    footer.classList.toggle("black-text");
+    footer.classList.toggle("white-text");
 }
 
 function navigateTo(url) {

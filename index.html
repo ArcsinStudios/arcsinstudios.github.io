@@ -9,12 +9,12 @@
     <script src="scripts.js"></script>
   </head>
   <body id="page" class="light-background">
-    <img src="../logo-big.png" alt="logo-big" class="logo" onclick="checkEasterEgg()"/>
-    <button type="button" class="lang-button" style="position:absolute; top:13px; right:225px;" onclick="navigateTo('zh-cn/')">中文</button>
-    <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">Toggle Theme</button>
     <div class="gradient-text1" style="text-align:center;">
       <h1>~ Arcsin Studios ~</h1>
     </div>
+    <img src="../logo-big.png" alt="logo-big" class="logo" onclick="checkEasterEgg()"/>
+    <button type="button" class="lang-button" style="position:absolute; top:13px; right:225px;" onclick="navigateTo('zh-cn/')">中文</button>
+    <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">Toggle Theme</button>
     <div class="gradient-text2" style="text-align:center;">
       <h2>Craft · Narrate · Code</h2>
     </div>
@@ -75,6 +75,6 @@
       <h2>&lt;-END-&gt;</h2>
     </div>
     <input id="search" type="text" placeholder="Jump to page..." class="search-box" onkeypress="submitJump(event)"></input>
-    <footer>© 2024-2025 Arcsin Studios. All Rights Reserved.</footer>
+    <footer class="black-text" id="footer">© 2024-2025 Arcsin Studios. All Rights Reserved.</footer>
   </body>
 </html>

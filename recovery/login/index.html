@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recovery/Login</title>
+  <style>
+    body {
+      background-color: black;
+    }
+
+    .gy {
+      color: greenyellow;
+    }
+  </style>
+  <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const username = urlParams.get("username");
+    const password = urlParams.get("password");
+
+    if (username === "TheForgottenOne" && password === "it") {
+        localStorage.setItem("account", "TheForgottenOne");
+    }
+
+    function handleVisibilityChange() {
+        if (document.hidden && localStorage.getItem("account") === "TheForgottenOne") {
+            window.location.replace("../log/0.html");
+        }
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange, false);
+  </script>
+</head>
+<body>
+  <form class="gy" action="">
+    Username: <input type="text" name="username" /><br />
+    Password: <input type="password" name="password" /><br />
+    <button type="submit">Login as an existing account</button>
+  </form>
+</body>
+</html>

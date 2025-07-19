@@ -82,7 +82,7 @@ footer {
     padding: 10px 20px;
     cursor: pointer;
     background-color: transparent;
-    color: #9c9c9c;
+    color: silver;
     font-size: 20px;
     font-weight: bold;
 }
@@ -98,7 +98,6 @@ footer {
 	color: white;
 	font-size: 20px;
 	font-weight: bold;
-	text-shadow: 0px 1px 0px #3d768a;
     transition: background-color 0.5s;
 }
 
@@ -136,17 +135,17 @@ footer {
 }
 
 .content-container::-webkit-scrollbar-thumb {
-    background-color: #bdbdbd;
+    background-color: silver;
     border-radius: 10px;
     transition: background-color 0.5s;
 }
 
 .content-container::-webkit-scrollbar-thumb:hover {
-    background-color: #c7c7c7;
+    background-color: lightgray;
 }
 
 .content-container::-webkit-scrollbar-thumb:active {
-    background-color: #b0b0b0;
+    background-color: darkgray;
 }
 
 .search-box {
@@ -168,7 +167,7 @@ footer {
 }
 
 .search-box::placeholder {
-    color: #bdbdbd;
+    color: silver;
 }
 
 .glitch-wrapper {

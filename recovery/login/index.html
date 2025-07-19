@@ -24,9 +24,17 @@
         localStorage.setItem("account", "TheForgottenOne");
     }
 
+    if (username === "TheArcsin" && password === "1/sqrt(1-x^2)") {
+        localStorage.setItem("account", "TheArcsin");
+    }
+
     function handleVisibilityChange() {
-        if (document.hidden && localStorage.getItem("account") === "TheForgottenOne") {
-            window.location.replace("../log/0.html");
+        if (document.hidden) {
+            if (localStorage.getItem("account") === "TheForgottenOne") {
+                window.location.replace("../log/0.html");
+            } else if (localStorage.getItem("account") === "TheArcsin") {
+                window.location.replace("../log/1.html");
+            }
         }
     }
 

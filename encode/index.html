@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcsin Studios</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/logo-small.png" type="image/png">
+    <script src="/scripts.js"></script>
+  </head>
+  <body id="page" class="light-background">
+    <img src="/Moonday.png" alt="logo-big" class="logo"/>
+    <div class="gradient-text1" style="text-align:center;">
+      <h1>Special: Encode</h1>
+    </div>
+    <div class="gradient-text2" style="text-align:center;">
+      <h2>Obfuscate your message!</h2>
+    </div>
+    <div class="content-container" style="border-radius:20px;">
+      <h1 id="title">How to Use</h1>
+      <h2 id="encode-title">Encoding</h2>
+      <p id="encode-content">
+        1. Type "index.html?e=" in the address bar right after the "/". (Do not select the whole URL when typing!)<br />
+        - If there's no "/", add one manually.<br />
+        2. After "?e=", type the message you want to encode.<br />
+        3. That's it!<br />
+        4. If you want to customize characters which are used to replace zeroes and ones, do like this:<br />
+        - Add "zeroes=" right after the "?", then the character (only one!) you want, then "&".<br />
+        - Add "ones=" right after the "&", then the character (only one!) you want, then "&".
+      </p>
+      <h2 id="decode-title">Decoding</h2>
+      <p id="decode-content">Your friend (or the one who sent you this) will probably provide you with a URL. Replace the URL in the address bar with that.</p>
+      <h2>Notice</h2>
+      <p>
+        Use this tool without worrying about "Will my information be stolen?".<br />
+        Our tool runs completely on the front-end and nothing will be uploaded to the server (but actually, GitHub Pages doesn't even have this feature).
+      </p>
+    </div>
+    <footer class="black-text" id="footer">© 2024-2025 Arcsin Studios. All Rights Reserved.</footer>
+    <style>
+      #decode-content {
+        white-space: pre-wrap;
+      }
+    </style>
+    <script>
+      function splitLen(input, len) {
+          const result = [];
+          for (let i = 0; i < input.length; i += len) {
+              const chunk = input.substring(i, i + len);
+              result.push(chunk);
+          }
+          return result;
+      }
+
+      function stob(input) {
+        let binStr = "";
+        for (let i = 0; i < input.length; ++i) {
+          const bin = input.charCodeAt(i).toString(2).padStart(8, "0");
+          binStr += bin;
+        }
+        return binStr;
+      }
+
+      function btos(input) {
+        let binStrs = splitLen(input, 8);
+        let str = "";
+        for (let i = 0; i < binStrs.length; ++i) {
+          const code = parseInt(binStrs[i], 2);
+          str += String.fromCharCode(code);
+        }
+        return str;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+
+      const isEncoding = params.has("e");
+      const isDecoding = params.has("q");
+      const hasCustomZeroes = params.has("zeroes");
+      const hasCustomOnes = params.has("ones");
+      var customZero = "I";
+      var customOne = "l";
+
+      if (hasCustomZeroes) {
+        customZero = params.get("zeroes");
+      }
+      if (hasCustomOnes) {
+        customOne = params.get("ones");
+      }
+
+      const title = document.getElementById("title");
+      const encodeTitle = document.getElementById("encode-title");
+      const encodeContent = document.getElementById("encode-content");
+      const decodeTitle = document.getElementById("decode-title");
+      const decodeContent = document.getElementById("decode-content");
+
+      var result = "";
+
+      if (isEncoding) {
+        result = stob(params.get("e")).replaceAll("0", customZero).replaceAll("1", customOne);
+        title.textContent = "Results";
+        encodeTitle.textContent = "Encoded";
+        encodeContent.textContent = result;
+        decodeTitle.textContent = "How to Decode";
+        let decodeContentText = "Simply visit:\nhttps://arcsinstudios.github.io/encode/index.html?";
+        if (hasCustomZeroes) {
+          decodeContentText += "zeroes=" + customZero + "&";
+        }
+        if (hasCustomOnes) {
+          decodeContentText += "ones=" + customOne + "&";
+        }
+        decodeContentText += "q=" + result;
+        decodeContent.textContent = decodeContentText;
+      }
+      else if (isDecoding) {
+        result = btos(params.get("q").replaceAll(customZero, "0").replaceAll(customOne, "1"));
+        title.textContent = "Results";
+        encodeTitle.textContent = "";
+        encodeContent.textContent = "";
+        decodeTitle.textContent = "Decoded";
+        decodeContent.textContent = result;
+      }
+    </script>
+  </body>
+</html>

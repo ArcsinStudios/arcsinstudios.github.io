@@ -6,21 +6,32 @@
     <title>Arcsin Studios</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="logo-small.png" type="image/png">
-    <script src="scripts.js"></script>
+    <script src="scripts.js" defer></script>
   </head>
   <body id="page" class="light-background">
-    <div class="gradient-text1" style="text-align:center;">
-      <h1>~ Arcsin Studios ~</h1>
-    </div>
     <img src="../logo-big.png" alt="logo-big" class="logo" onclick="checkEasterEgg()"/>
     <button type="button" class="lang-button" style="position:absolute; top:13px; right:225px;" onclick="navigateTo('zh-cn/')">中文</button>
     <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">Toggle Theme</button>
+    <div class="gradient-text1" style="text-align:center;">
+      <h1>~ Arcsin Studios ~</h1>
+    </div>
     <div class="gradient-text2" style="text-align:center;">
       <h2>Craft · Narrate · Code</h2>
     </div>
-    <div class="content-container">
-      <p>Nav: <a href="about-us/">About us</a> <a href="contact-us/">Contact us</a></p>
+    <div id="page1" class="content-container">
+      <p>
+        Nav:
+        <a href="about-us/">About us</a>
+        <a href="contact-us/">Contact us</a>
+        <a href="encode/">Something New</a>
+      </p>
       <h1>News</h1>
+      <h2>(2025/07/31) Not news about Moonday</h2>
+      <p>
+        So we've added "Something New" to the nav bar.<br />
+        What? You said you're nearsighted and cannot see the nav bar?<br />
+        Then click <h2><a href="encode/">THIS</a></h2>!!!!!
+      </p>
       <h2>(2025/07/20) International Moon Day, what did we do?</h2>
       <p>
         A: We released <em>Moonday (Demo)</em>...<br />
@@ -96,6 +107,15 @@
           </p>
         </details>
       </p>
+    </div>
+    <div id="page2" class="content-container" style="display:none; border-radius:20px;">
+      <p>
+        Nav:
+        <a href="about-us/">About us</a>
+        <a href="contact-us/">Contact us</a>
+        <a href="encode/">Something New</a>
+      </p>
+      <h1>News</h1>
       <h2>
         <span>(2025/06/17) Some words about our</span>
         <span class="gradient-text1">Game Demo</span>
@@ -111,6 +131,10 @@
         Whatever, just wait for our good news!
       </p>
       <h2>&lt;-END-&gt;</h2>
+    </div>
+    <div class="container-wrapper">
+      <p id="page-left" class="black-text page-button" style="left:-5vw;" onclick="prevPage()">⯇</p>
+      <p id="page-right" class="black-text page-button" style="right:-5vw;" onclick="nextPage()">⯈</p>
     </div>
     <input id="search" type="text" placeholder="Jump to page..." class="search-box" onkeypress="submitJump(event)"></input>
     <footer class="black-text" id="footer">© 2024-2025 Arcsin Studios. All Rights Reserved.</footer>

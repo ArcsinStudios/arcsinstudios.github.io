@@ -80,10 +80,10 @@ footer {
 
 .lang-button {
     border: none;
-    padding: 10px 20px;
+    padding: 0.6em;
     cursor: pointer;
     background-color: transparent;
-    color: tomato;
+    color: cornflowerblue;
     font-size: 20px;
     font-weight: bold;
 }
@@ -92,9 +92,9 @@ footer {
 	border-radius: 16px;
     border: none;
 	display: inline-block;
-	padding: 16px 32px;
+	padding: 0.8em 32px;
 	cursor: pointer;
-	background-color: #599bb3;
+	background-color: teal;
     box-shadow: 7px 7px 12px rgba(0, 0, 0, 40%);
 	color: white;
 	font-size: 20px;
@@ -103,7 +103,7 @@ footer {
 }
 
 .theme-button:hover {
-	background-color: #408c99;
+	background-color: darkcyan;
     transition: background-color 0.5s;
 }
 

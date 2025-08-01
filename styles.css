@@ -144,6 +144,7 @@ footer {
     overflow-y: auto;
     overflow-wrap: break-word;
     padding: 10px;
+    scrollbar-gutter: stable both-edges;
 }
 
 .content-container::-webkit-scrollbar {

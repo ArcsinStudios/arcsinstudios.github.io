@@ -18,6 +18,10 @@ footer {
     transform: translateX(-50%);
 }
 
+hr {
+    border-color: black;
+}
+
 .light-background,
 .dark-background {
     background-color: var(--end-stop);

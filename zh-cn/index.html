@@ -23,9 +23,50 @@
         导航栏：
         <a href="about-us/">关于我们</a>
         <a href="contact-us/">联系我们</a>
+        <a href="arcsin-radio/">Arcsin电台</a>
         <a href="../encode/">新东西</a>
       </p>
       <h1>新闻</h1>
+      <h2>(2025/08/19) 宣布一个更好的《Moonday》</h2>
+      <p>
+        <div>
+          <blockquote>
+            <p>
+              如果我假装我写了Windows API，<br />
+              那我会叫它<span title="扩展到：MoondayExW"><a href="/index.html#MoondayEx-Code">MoondayEx</a></span>。
+            </p>
+          </blockquote>
+          <p>——总之是个人《总之是本书》</p>
+        </div>
+        <div id="MoondayEx-Code">
+          <code>
+            #ifdef UNICODE<br />
+            #define MoondayEx MoondayExW<br />
+            #else<br />
+            #define MoondayEx MoondayExA<br />
+            #endif // !UNICODE
+          </code>
+        </div>
+        嗯，我们直入主题吧。<br />
+        为什么说它“更好了”？
+        <ul>
+          <li>1. 因为我们修复了一个bug（MD-4）。</li>
+          <li>2. 因为我们重构了一<em>小</em>段代码<sup>[1]</sup>。</li>
+          <li>3. 因为我们杀死了所有（大部分）全局变量。</li>
+          <li>4. 请输入文本</li>
+        </ul>
+        重要：<br />
+        我们有比这重要的多的东西要处理，所以再多等几天吧。<br />
+        原谅我们 :-(
+        <details>
+          <summary>脚注</summary>
+          <p>
+            [1] stringstream + MultiByteToWideChar<sup>[2]</sup> -> swprintf 😎👍<br />
+            [2] **** MultiByteToWideChar<sup>[1]</sup> 😡👎<br />
+            （如果你继续跟着这些脚注看的话，你会得到栈溢出的。）
+          </p>
+        </details>
+      </p>
       <h2>(2025/08/10) 天哪我们没时间介绍这个了</h2>
       <p>
         <a href="/Moonday Demo Chinese.zip">下载！！</a>
@@ -86,6 +127,16 @@
         什么？你说你近视看不见导航栏？<br />
         那就点<h2><a href="../encode/">这个</a></h2>！！！！！
       </p>
+    </div>
+    <div id="page2" class="content-container" style="display:none; border-radius:20px;">
+      <p>
+        导航栏：
+        <a href="about-us/">关于我们</a>
+        <a href="contact-us/">联系我们</a>
+        <a href="arcsin-radio/">Arcsin电台</a>
+        <a href="../encode/">新东西</a>
+      </p>
+      <h1>新闻</h1>
       <h2>(2025/07/20) 国际月球日，我们做了什么？</h2>
       <p>
         A：我们发布了《Moonday》（Demo）……<br />
@@ -97,15 +148,6 @@
         ？<br />
         额，要不还是<a href="../Moonday Beta 0.2.0.zip"><em>Moonday Beta 0.2.0</em></a>吧。
       </p>
-    </div>
-    <div id="page2" class="content-container" style="display:none; border-radius:20px;">
-      <p>
-        导航栏：
-        <a href="about-us/">关于我们</a>
-        <a href="contact-us/">联系我们</a>
-        <a href="../encode/">新东西</a>
-      </p>
-      <h1>新闻</h1>
       <h2>(2025/07/19) 我们其实不想写这个的</h2>
       <p>
         （我们是不是写太多新闻了？）

@@ -1,3 +1,13 @@
+@font-face {
+    font-family: "Cascadia Next";
+    src: url("CascadiaNextSC.woff2") format('woff2'),
+        url("CascadiaNextSC.woff") format('woff'),
+        url("CascadiaNextSC.tt'") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 #page {
     display: none;
     z-index: 0;
@@ -20,6 +30,46 @@ footer {
 
 hr {
     border-color: black;
+}
+
+div:has(> code) {
+    background-color: black;
+    color: white;
+    width: 400px;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+code {
+    font-family: "Cascadia Next", monospace !important;
+}
+
+div:has(> blockquote) {
+    background-color: rgba(255, 255, 255, 30%);
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+blockquote p::before {
+    content: "\201C";
+}
+
+blockquote p::after {
+    content: "\201D";
+}
+
+blockquote + p {
+    text-align: right;
+}
+
+ul {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
 }
 
 .light-background,

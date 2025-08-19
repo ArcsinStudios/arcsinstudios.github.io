@@ -27,6 +27,46 @@
         <a href="encode/">Something New</a>
       </p>
       <h1>News</h1>
+      <h2>(2025/08/19) Announcing a better <em>Moonday</em></h2>
+      <p>
+        <div>
+          <blockquote>
+            <p>
+              If I pretend I'm the one who made Windows API,<br />
+              then I will call it <span title="Expands to: MoondayExW"><a href="/index.html#MoondayEx-Code">MoondayEx</a></span>.
+            </p>
+          </blockquote>
+          <p>-Whatever a person, <cite>Whatever A Book</cite></p>
+        </div>
+        <div id="MoondayEx-Code">
+          <code>
+            #ifdef UNICODE<br />
+            #define MoondayEx MoondayExW<br />
+            #else<br />
+            #define MoondayEx MoondayExA<br />
+            #endif // !UNICODE
+          </code>
+        </div>
+        Hmm. Let's get straight to the point.<br />
+        Why is it "better"?
+        <ul>
+          <li>1. Because we fixed a bug (<a href="arcjira/index.html#MD-5">MD-5</a>).</li>
+          <li>2. Because we refactored a <em>small</em> piece of code<sup>[1]</sup>.</li>
+          <li>3. Because we killed all (most of) the global variables.</li>
+          <li>4. Please Enter Text</li>
+        </ul>
+        Important:<br />
+        We have something far more important to handle so, wait for another multiple days.<br />
+        Forgive us :-(
+        <details>
+          <summary>Footnotes</summary>
+          <p>
+            [1] stringstream + MultiByteToWideChar<sup>[2]</sup> -> swprintf 😎👍<br />
+            [2] **** MultiByteToWideChar<sup>[1]</sup> 😡👎<br />
+            (If you continue following these footnotes, you will get a Stack Overflow.)
+          </p>
+        </details>
+      </p>
       <h2>(2025/08/10) OMG We have no time to introduce this</h2>
       <p>
         <a href="Moonday Demo.zip">Download!!</a>
@@ -96,6 +136,16 @@
         What? You said you're nearsighted and cannot see the nav bar?<br />
         Then click <h2><a href="encode/">THIS</a></h2>!!!!!
       </p>
+    </div>
+    <div id="page2" class="content-container" style="display:none;">
+      <p>
+        Nav:
+        <a href="about-us/">About us</a>
+        <a href="contact-us/">Contact us</a>
+        <a href="arcsin-radio/">Arcsin Radio</a>
+        <a href="encode/">Something New</a>
+      </p>
+      <h1>News</h1>
       <h2>(2025/07/20) International Moon Day, what did we do?</h2>
       <p>
         A: We released <em>Moonday (Demo)</em>...<br />
@@ -107,15 +157,6 @@
         ?<br />
         Uh, Maybe <a href="Moonday Beta 0.2.0.zip"><em>Moonday Beta 0.2.0</em></a>.
       </p>
-    </div>
-    <div id="page2" class="content-container" style="display:none;">
-      <p>
-        Nav:
-        <a href="about-us/">About us</a>
-        <a href="contact-us/">Contact us</a>
-        <a href="encode/">Something New</a>
-      </p>
-      <h1>News</h1>
       <h2>(2025/07/19) We actually didn't want to write this</h2>
       <p>
         (Are we writing too much news?)

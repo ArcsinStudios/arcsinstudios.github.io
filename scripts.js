@@ -17,7 +17,7 @@ var searchBoxVisible = false;
 
 var currPage = 1;
 var minPage = 1;
-var maxPage = 2;
+var maxPage = 3;
 
 var pages = [];
 for (let i = minPage; i <= maxPage; ++i) {

@@ -30,6 +30,22 @@ if (stupid === null) {
     localStorage.setItem("stupid", stupid);
 }
 
+var footer = document.getElementById("footer");
+if (footer) {
+    var text0 = new Date().getFullYear();
+    var text1 = ". ";
+    var text2 = "";
+    var text3 = "Some Rights Reserved";
+    var text4 = ".";
+    l10nHelper(function(){}, function() {
+        text1 = " 版权所有。";
+        text2 = "/zh-cn/"
+        text3 = "保留部分权利";
+        text4 = "。";
+    });
+    footer.innerHTML = `© 2024-${text0} Arcsin Studios${text1}<a href="${text2}/copyright/" style="color:dodgerblue;">${text3}</a>${text4}`;
+}
+
 document.addEventListener("keydown", function(event) {
     if (event.code === "KeyS") {
         if (document.activeElement.tagName !== "INPUT") {
@@ -79,6 +95,15 @@ function initTheme() {
     page.style.display = "block";
 }
 window.onload = initTheme;
+
+function l10nHelper(func0, func1) {
+    if (window.location.pathname.startsWith("/zh-cn/")) {
+        func1();
+    }
+    else {
+        func0();
+    }
+}
 
 function toggleTheme() {
     var page = document.getElementById("page");
@@ -166,14 +191,28 @@ function submitJump(event) {
             if (input === "http://" || input === "https://") {
                 stupid = String(parseInt(stupid, 10) + 1);
                 localStorage.setItem("stupid", stupid);
-                alert("Invalid URL: what the heck are you doing??\n无效的URL：你特么到底在干什么？？\n" + stupid);
+                l10nHelper(
+                    function() {
+                        alert("Invalid URL: what the heck are you doing?\nYou've done that " + stupid + " time(s).");
+                    },
+                    function() {
+                        alert("无效的URL：你特么的在干什么？\n你已经干了这种事 " + stupid + " 次了。");
+                    }
+                );
             }
             else {
                 navigateTo(input);
             }
         }
         else {
-            alert("Invalid character(s) detected.\n检测到无效字符。");
+            l10nHelper(
+                function() {
+                    alert("Invalid character(s) detected.");
+                },
+                function() {
+                    alert("检测到无效字符。");
+                }
+            );
         }
     }
 }

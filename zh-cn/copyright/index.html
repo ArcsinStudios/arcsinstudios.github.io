@@ -3,34 +3,30 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcsin Studios - Copyright</title>
+    <title>Arcsin Studios - 著作权</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/logo-small.png" type="image/png">
-    <script src="/scripts.js"></script>
+    <script src="/scripts.js" defer></script>
   </head>
   <body class="light-background" id="page">
-    <img src="/logo-big.png" alt="logo-big" class="logo"/>
-    <button type="button" class="lang-button" style="position:absolute; top:10px; right:225px;" onclick="navigateTo('/copyright/')">English</button>
-    <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">切换主题</button>
-    <div class="gradient-text1" style="text-align:center;">
-      <h1>~ Arcsin Studios ~</h1>
-    </div>
-    <div class="gradient-text2" style="text-align:center;">
-      <h2>创造 · 叙述 · 程序</h2>
-    </div>
+    <img src="/logo-big.png" alt="logo-big" class="logo">
+    <button id="lang-btn"></button>
+    <button id="theme-btn"></button>
+    <div id="title"></div>
+    <div id="subtitle"></div>
     <div class="content-container">
-      <p>导航栏：<a href="../">主页</a></p>
+      <p>导航栏：<a href="/zh-cn/">主页</a></p>
       <h1>“保留部分权利”：我们保留什么</h1>
       <p>
-        Arcsin Studios 对 Arcsin Studios 官方网站（下文称“网站”或“本网站”）保留如下权利：<br />
+        Arcsin Studios 对 Arcsin Studios 官方网站（下文称“网站”或“本网站”）保留如下权利：<br>
         <ul style="width:800px;">
-          <li>1. 由 Arcsin Studios 创作并发布于本网站的所有图片、视频、音频、可执行文件及其他非文本内容，无论在网站中展示与否，版权均归 Arcsin Studios 所有。</li>
+          <li>1. 由 Arcsin Studios 创作并发布于本网站的所有图片、视频、音频、可执行文件及其他非文本内容，无论在网站中展示与否，著作权均归 Arcsin Studios 所有。</li>
           <li>2. 由 Arcsin Studios 创作并发布于本网站的所有代码片段和文件，除网站本身所使用的 HTML、CSS 和 JavaScript 文件外，均使用 MIT 许可证。</li>
           <li>3. 由 Arcsin Studios 创作并发布于本网站的所有文本，均使用 CC BY-SA 4.0 许可协议。</li>
         </ul>
       </p>
       <h2>&lt;-END-&gt;</h2>
     </div>
-    <footer class="black-text" id="footer"></footer>
+    <footer id="footer"></footer>
   </body>
 </html>

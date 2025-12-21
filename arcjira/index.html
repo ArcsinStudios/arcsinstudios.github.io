@@ -6,7 +6,7 @@
     <title>Arcsin Studios</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/logo-small.png" type="image/png">
-    <script src="/scripts.js"></script>
+    <script src="/scripts.js" defer></script>
     <style>
       ul {
         width: 90%;
@@ -18,14 +18,10 @@
     </style>
   </head>
   <body id="page" class="light-background">
-    <img src="/logo-big.png" alt="logo-big" class="logo"/>
-    <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">Toggle Theme</button>
-    <div class="gradient-text1" style="text-align:center;">
-      <h1>~ Arcjira ~</h1>
-    </div>
-    <div class="gradient-text2" style="text-align:center;">
-      <h2>Arcsin Studios Issue Tracker</h2>
-    </div>
+    <img src="/logo-big.png" alt="logo-big" class="logo">
+    <button id="theme-btn"></button>
+    <div id="title" data-text="~ Arcjira ~"></div>
+    <div id="subtitle" data-text="Arcsin Studios Issue Tracker"></div>
     <div class="content-container">
       <div style="width:450px; white-space:pre-wrap;"><code> .d8b.  d8888b.  .o88b.    d88b d888888b d8888b.  .d8b.
 d8' `8b 88  `8D d8P  Y8    `8P'   `88'   88  `8D d8' `8b
@@ -79,6 +75,6 @@ YP   YP 88   YD  `Y88P' Y8888P  Y888888P 88   YD YP   YP</code></div>
           <li>Status: Pending</li>
         </ul>
     </div>
-    <footer class="black-text" id="footer"></footer>
+    <footer id="footer"></footer>
   </body>
 </html>

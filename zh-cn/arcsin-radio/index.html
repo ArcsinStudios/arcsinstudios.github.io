@@ -9,62 +9,58 @@
     <script src="/scripts.js" defer></script>
   </head>
   <body id="page" class="light-background">
-    <img src="/logo-big.png" alt="logo-big" class="logo"/>
-    <button type="button" class="lang-button" style="position:absolute; top:20px; right:175px;" onclick="navigateTo('/arcsin-radio/')">English</button>
-    <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">切换主题</button>
-    <div class="gradient-text1" style="text-align:center;">
-      <h1>~ Arcsin Studios ~</h1>
-    </div>
-    <div class="gradient-text2" style="text-align:center;">
-      <h2>创造 · 叙述 · 程序</h2>
-    </div>
+    <img src="/logo-big.png" alt="logo-big" class="logo">
+    <button id="lang-btn"></button>
+    <button id="theme-btn"></button>
+    <div id="title"></div>
+    <div id="subtitle"></div>
     <div class="content-container">
       <p>
-        导航栏：<a href="/zh-cn">主页</a>
+        导航栏：<a href="/zh-cn/">主页</a>
       </p>
       <h1 style="margin-bottom:10px;">Arcsin电台（第一季）</h1>
       <h3 style="margin-top:10px;" title="别问为什么我们用的是&lt;h3&gt;。">Arcsin怎么<del>叫</del>说？</h3>
       <h2>介绍</h2>
       <p>
-        欢迎收听Arcsin电台！<br />
-        这儿是一些FAQ（常被问到的问题）：<br />
-        <hr />
-        <strong>Q1.</strong> 你好！<br />
-        <strong>A1.</strong> 你好！<br />
-        <hr />
-        <strong>Q2.</strong> 你们为什么要做这个独立的板块？<br />
-        <strong>A2.</strong> 我们不希望把<strong>所有东西</strong>都写在新闻板块里，所以，就是这样。<br />
-        <hr />
-        <strong>Q3.</strong> 你们会在这里写点什么？<br />
-        <strong>A3.</strong> 只有你想不到，没有我们写不了。例如：<br />
+        欢迎收听Arcsin电台！<br>
+        这儿是一些FAQ（常被问到的问题）：<br>
+        <hr>
+        <strong>Q1.</strong> 你好！<br>
+        <strong>A1.</strong> 你好！<br>
+        <hr>
+        <strong>Q2.</strong> 你们为什么要做这个独立的板块？<br>
+        <strong>A2.</strong> 我们不希望把<strong>所有东西</strong>都写在新闻板块里，所以，就是这样。<br>
+        <hr>
+        <strong>Q3.</strong> 你们会在这里写点什么？<br>
+        <strong>A3.</strong> 只有你想不到，没有我们写不了。例如：<br>
         <ul>
           <li>一些我们会突然想到的冷笑话。</li>
           <li>一些不那么重要的开发日志。</li>
           <li>这样有趣的例子无独有偶……</li>
           <li title="这确实偶。">2。</li>
         </ul>
-        <hr />
-        <strong>Q4.</strong> 你是谁？<br />
+        <hr>
+        <strong>Q4.</strong> 你是谁？<br>
         <strong>A4.</strong> 哔哔我是个Arcsin。
-        <hr />
+        <hr>
       </p>
       <h2>#1 逐字先生</h2>
       <p>
-        孩子们你们好啊，我是逐字先生！<br />
+        孩子们你们好啊，我是逐字先生！<br>
         我想告诉你们一些事情……
         <details>
           <summary>俗话说得好</summary>
-          <img src="/SuHuaShuoDeHao.png" alt="“俗话”正在说“得好”"/>
+          <img src="/SuHuaShuoDeHao.png" alt="“俗话”正在说“得好”">
         </details>
       </p>
       <h2>#2 多酷的东西啊</h2>
       <p>
-        我来这是为了介绍一个很酷的东西：<br />
-        <img src="/14915-Chinese.png" alt="一句话：“这里有14915个不透明像素！”，并且真的有！"/><br />
-        想生成同款图片吗？<br />
+        我来这是为了介绍一个很酷的东西：<br>
+        <img src="/14915-Chinese.png" alt="一句话：“这里有14915个不透明像素！”，并且真的有！"><br>
+        想生成同款图片吗？<br>
         点<a target="_blank" href="https://somethingorotherwhatever.com/matt-parker-count-black-pixels/" title="嘿这个链接……挺长的，我得说。">这儿</a>！
       </p>
     </div>
-    <footer id="footer" class="black-text"></footer>
+    <footer id="footer"></footer>
   </body>
 </html>

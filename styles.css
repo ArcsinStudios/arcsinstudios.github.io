@@ -99,14 +99,14 @@ ul {
     left: 0;
 }
 
-.gradient-text1 {
+.gradient-text0 {
     background: linear-gradient(to bottom right, blue, cyan);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.gradient-text2 {
+.gradient-text1 {
     background: linear-gradient(to bottom right, orange, red);
     background-clip: text;
     -webkit-background-clip: text;

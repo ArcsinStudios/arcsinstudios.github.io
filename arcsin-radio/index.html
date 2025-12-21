@@ -9,15 +9,11 @@
     <script src="/scripts.js" defer></script>
   </head>
   <body id="page" class="light-background">
-    <img src="/logo-big.png" alt="logo-big" class="logo"/>
-    <button type="button" class="lang-button" style="position:absolute; top:10px; right:225px;" onclick="navigateTo('/zh-cn/arcsin-radio/')">中文</button>
-    <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">Toggle Theme</button>
-    <div class="gradient-text1" style="text-align:center;">
-      <h1>~ Arcsin Studios ~</h1>
-    </div>
-    <div class="gradient-text2" style="text-align:center;">
-      <h2>Craft · Narrate · Code</h2>
-    </div>
+    <img src="/logo-big.png" alt="logo-big" class="logo">
+    <button id="lang-btn"></button>
+    <button id="theme-btn"></button>
+    <div id="title"></div>
+    <div id="subtitle"></div>
     <div class="content-container">
       <p>
         Nav:
@@ -27,45 +23,45 @@
       <h3 style="margin-top:10px;" title="Don't ask why we use &lt;h3&gt;.">What does <del>the</del> Arcsin say?</h3>
       <h2>Introduction</h2>
       <p>
-        Welcome to Arcsin Radio!<br />
-        Here are some <strong>F</strong>requently <strong>A</strong>sked <strong>Q</strong>uestions (<strong>FAQ</strong>):<br />
-        <hr />
-        <strong>Q1.</strong> Hello!<br />
-        <strong>A1.</strong> Hello!<br />
-        <hr />
-        <strong>Q2.</strong> Why did you make this individual section?<br />
-        <strong>A2.</strong> We don't want to write <strong>everything</strong> in the news section, so, this is it.<br />
-        <hr />
-        <strong>Q3.</strong> What will you write in this section?<br />
-        <strong>A3.</strong> Anything you could imagine. For example:<br />
+        Welcome to Arcsin Radio!<br>
+        Here are some <strong>F</strong>requently <strong>A</strong>sked <strong>Q</strong>uestions (<strong>FAQ</strong>):<br>
+        <hr>
+        <strong>Q1.</strong> Hello!<br>
+        <strong>A1.</strong> Hello!<br>
+        <hr>
+        <strong>Q2.</strong> Why did you make this individual section?<br>
+        <strong>A2.</strong> We don't want to write <strong>everything</strong> in the news section, so, this is it.<br>
+        <hr>
+        <strong>Q3.</strong> What will you write in this section?<br>
+        <strong>A3.</strong> Anything you could imagine. For example:<br>
         <ul>
           <li>Bad jokes that we'll suddenly come up with.</li>
           <li>Those unimportant dev logs.</li>
           <li>Even...</li>
           <li title="It is an even number indeed.">2.</li>
         </ul>
-        <hr />
-        <strong>Q4.</strong> Who are you?<br />
+        <hr>
+        <strong>Q4.</strong> Who are you?<br>
         <strong>A4.</strong> Beep beep I'm an Arcsin.
-        <hr />
+        <hr>
       </p>
       <h2>#1 Mr. Literal is here!</h2>
       <p>
-        Hello kids, and I'm Mr Literal!<br />
+        Hello kids, and I'm Mr Literal!<br>
         I'd like to tell you something... 
         <details>
           <summary>As the saying goes</summary>
-          <img src="/AsTheSayingGoes.gif" alt="A word &quot;saying&quot; is walking"/>
+          <img src="/AsTheSayingGoes.gif" alt="A word &quot;saying&quot; is walking">
         </details>
       </p>
       <h2>#2 What a cool thing</h2>
       <p>
-        I'm here to introduce this:<br />
-        <img src="/14915-English.png" alt="A sentence: &quot;There are 14915 opaque pixels!&quot;, and there really are!"/><br />
-        Want to generate similar images?<br />
+        I'm here to introduce this:<br>
+        <img src="/14915-English.png" alt="A sentence: &quot;There are 14915 opaque pixels!&quot;, and there really are!"><br>
+        Want to generate similar images?<br>
         Click <a target="_blank" href="https://somethingorotherwhatever.com/matt-parker-count-black-pixels/" title="Hey this link is... pretty long, I'd say.">this</a>!
       </p>
     </div>
-    <footer id="footer" class="black-text"></footer>
+    <footer id="footer"></footer>
   </body>
 </html>

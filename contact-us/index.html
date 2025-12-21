@@ -6,18 +6,14 @@
     <title>Arcsin Studios - Contact Us</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/logo-small.png" type="image/png">
-    <script src="/scripts.js"></script>
+    <script src="/scripts.js" defer></script>
   </head>
   <body class="light-background" id="page">
-    <img src="/logo-big.png" alt="logo-big" class="logo"/>
-    <button type="button" class="lang-button" style="position:absolute; top:10px; right:225px;" onclick="navigateTo('/zh-cn/contact-us/')">中文</button>
-    <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">Toggle Theme</button>
-    <div class="gradient-text1" style="text-align:center;">
-      <h1>~ Arcsin Studios ~</h1>
-    </div>
-    <div class="gradient-text2" style="text-align:center;">
-      <h2>Craft · Narrate · Code</h2>
-    </div>
+    <img src="/logo-big.png" alt="logo-big" class="logo">
+    <button id="lang-btn"></button>
+    <button id="theme-btn"></button>
+    <div id="title"></div>
+    <div id="subtitle"></div>
     <div class="content-container">
       <p>Nav: <a href="/">Home</a></p>
       <h1>Contact us</h1>
@@ -25,6 +21,6 @@
       <p>Email: arcsinstudios@outlook.com</p>
       <h2>&lt;-END-&gt;</h2>
     </div>
-    <footer class="black-text" id="footer"></footer>
+    <footer id="footer"></footer>
   </body>
 </html>

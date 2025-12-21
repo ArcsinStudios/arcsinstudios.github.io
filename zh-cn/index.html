@@ -9,15 +9,11 @@
     <script src="/scripts.js" defer></script>
   </head>
   <body id="page" class="light-background">
-    <img src="/logo-big.png" alt="logo-big" class="logo"/>
-    <button type="button" class="lang-button" style="position:absolute; top:20px; right:175px;" onclick="navigateTo('/')">English</button>
-    <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">切换主题</button>
-    <div class="gradient-text1" style="text-align:center;">
-      <h1>~ Arcsin Studios ~</h1>
-    </div>
-    <div class="gradient-text2" style="text-align:center;">
-      <h2>创造 · 叙述 · 程序</h2>
-    </div>
+    <img src="/logo-big.png" alt="logo-big" class="logo">
+    <button id="lang-btn"></button>
+    <button id="theme-btn"></button>
+    <div id="title"></div>
+    <div id="subtitle"></div>
     <div id="page1" class="content-container">
       <p>
         导航栏：
@@ -29,32 +25,32 @@
       <h1>新闻</h1>
       <h2>(2025/12/20) 新的一年就要来了</h2>
       <p>
-        各位最近怎么样啊？<br />
-        旧的一年即将过去，新的一年就要来临，小编在这里恭喜你发财，（噔噔噔噔噔噔），我恭喜你精彩，（噔噔噔噔噔噔），最好的请过来，不好的请走开，哦礼多人不怪……<br />
-        哎呀，不小心唱出来了。<br />
-        回到我们的话题，看到 LAUNCH 近些天这么多改变，我们真的非常高兴。<br />
+        各位最近怎么样啊？<br>
+        旧的一年即将过去，新的一年就要来临，小编在这里恭喜你发财，（噔噔噔噔噔噔），我恭喜你精彩，（噔噔噔噔噔噔），最好的请过来，不好的请走开，哦礼多人不怪……<br>
+        哎呀，不小心唱出来了。<br>
+        回到我们的话题，看到 LAUNCH 近些天这么多改变，我们真的非常高兴。<br>
         然后，关于我们的游戏：
         <ul style="width:900px;">
-          <li>1. 关于《Moonday》：非常抱歉，我们在 LAUNCH 上花了太多精力，实在没有办法保持《Moonday》的活跃更新。</li>
+          <li>1. 关于《Moonday》：非常抱歉，我们在 LAUNCH 上花了太多精力，实在没有办法保持《Moonday》的活跃更新。抱歉让大家失望了（如果你确实失望的话）。</li>
           <li>2. 关于《几何战士》：技术上来说，《几何战士》已经可以当作一个成品发布了，但我们仍然觉得它还有进步空间。总之，它会在 2025 年冬或者 2026 年春发布的！</li>
           <li>3. 还有一件事……：一款新的网页游戏就要来了！</li>
         </ul>
       </p>
       <h2>(2025/11/09) 发布 LAUNCH</h2>
       <p>
-        我们做了一个 C++ 库，LAUNCH！<br />
-        在 GitHub 上看看：<a href="https://github.com/ArcsinStudios/launch">[[GitHub 仓库]]</a><br />
+        我们做了一个 C++ 库，LAUNCH！<br>
+        在 GitHub 上看看：<a href="https://github.com/ArcsinStudios/launch">[[GitHub 仓库]]</a><br>
         我们还把它发到了 <a href="https://www.reddit.com/r/cpp/comments/1nvqyyi/c_show_and_tell_october_2025" title="在中国大陆访问需要 VPN/代理">Reddit</a> 上！
       </p>
       <h2>(2025/08/25 & 2025/08/30) 全新版本</h2>
       <p>
-        <a href="/Moonday_0.3.3_Releases.zip">0.3.3：它来了！</a><br />
-        而下一个，<br />
-        它绝对是有史以来最伟大、<br />
-        最吸引人、<br />
-        最令人惊叹<br />
-        以及最[[超级无敌牛逼360°托马斯螺旋飞天]]的更新。<br />
-        不是开玩笑。<br />
+        <a href="/Moonday_0.3.3_Releases.zip">0.3.3：它来了！</a><br>
+        而下一个，<br>
+        它绝对是有史以来最伟大、<br>
+        最吸引人、<br>
+        最令人惊叹<br>
+        以及最[[超级无敌牛逼360°托马斯螺旋飞天]]的更新。<br>
+        不是开玩笑。<br>
         <a href="/Moonday_0.4.0_Releases.zip">0.4.0：它来了！！</a>
       </p>
       <h2>(2025/08/19) 宣布一个更好的《Moonday》</h2>
@@ -62,7 +58,7 @@
         <div>
           <blockquote>
             <p>
-              如果我假装我写了Windows API，<br />
+              如果我假装我写了Windows API，<br>
               那我会叫它<span title="扩展到：MoondayExW"><a href="/index.html#MoondayEx-Code">MoondayEx</a></span>。
             </p>
           </blockquote>
@@ -70,14 +66,14 @@
         </div>
         <div id="MoondayEx-Code">
           <code>
-            #ifdef UNICODE<br />
-            #define MoondayEx MoondayExW<br />
-            #else<br />
-            #define MoondayEx MoondayExA<br />
+            #ifdef UNICODE<br>
+            #define MoondayEx MoondayExW<br>
+            #else<br>
+            #define MoondayEx MoondayExA<br>
             #endif // !UNICODE
           </code>
         </div>
-        嗯，我们直入主题吧。<br />
+        嗯，我们直入主题吧。<br>
         为什么说它“更好了”？
         <ul>
           <li>1. 因为我们修复了一个bug（<a href="/arcjira/index.html#MD-5">MD-5</a>）。</li>
@@ -86,13 +82,13 @@
           <li>4. 因为你可以在战斗中看见你和你的敌人们的HP了。</li>
           <li>5. 请输入文本</li>
         </ul>
-        注意：<br />
-        我们不会立即发布这个新版本。<br />
+        注意：<br>
+        我们不会立即发布这个新版本。<br>
         原谅我们 :-(
         <details>
           <summary>脚注</summary>
           <p>
-            [1] swprintf 😎👍<br />
+            [1] swprintf 😎👍<br>
           </p>
         </details>
       </p>
@@ -112,22 +108,22 @@
       <h1>新闻</h1>
       <h2 id="the-most-awesome-pun-ever" title="英语原文在此处玩了Log（原木）与Log（日志）的双关梗，汉化组不才，不得不挺身而出了。">(2025/08/05, #2) 开发者杳志</h2>
       <p>
-        假日志：<br />
-        现在我们有了场景5，于是试着加了跳吓。<br />
-        （算是吓人？唔知啊¯\_(ツ)_/¯）<br />
-        它甚至配不上“跳吓”这个名字。<br />
+        假日志：<br>
+        现在我们有了场景5，于是试着加了跳吓。<br>
+        （算是吓人？唔知啊¯\_(ツ)_/¯）<br>
+        它甚至配不上“跳吓”这个名字。<br>
         就只是<a href="/maybeNewEnemy.png">一个奇怪的史莱姆</a>以马赫速度飞快靠近而已。
       </p>
       <details>
         <summary>真木志</summary>
-        <img src="/Oak_Log_Axis_Y_JE5_BE3.png"/>
+        <img src="/Oak_Log_Axis_Y_JE5_BE3.png">
       </details>
       <h2>(2025/08/05, #1) 本文分三段<sup>[1]</sup></h2>
       <details>
         <summary>段落 #1</summary>
         <p>
-          <a href="/scene5.png">场景5</a>要来了！<br />
-          <a href="/maybeNewEnemy.png">一个新的敌人</a>要来了！<br />
+          <a href="/scene5.png">场景5</a>要来了！<br>
+          <a href="/maybeNewEnemy.png">一个新的敌人</a>要来了！<br>
           一切都有条不紊地进行着！
         </p>
       </details>
@@ -135,12 +131,12 @@
         <summary>段落 #2</summary>
         <p style="font-size:xx-large;">🤔</p>
         <p>
-          你们觉得我们应该在新闻里使用Emoji吗？<br />
-          好吧，依旧👉<a href="contact-us/">联系我们</a>👈。<br />
-          如果你喜欢在线投票：<br />
-          <a href="javascript:alert('感谢投票！😀\n不过这其实没用😂')">是的，你应该用Emoji</a><br />
-          <a href="javascript:alert('感谢投票！\n不过这其实没用;-P')">不，你永远不应该用Emoji</a><br />
-          <a href="javascript:alert('那你投票干什么呢？？')">我不确定</a><br />
+          你们觉得我们应该在新闻里使用Emoji吗？<br>
+          好吧，依旧👉<a href="contact-us/">联系我们</a>👈。<br>
+          如果你喜欢在线投票：<br>
+          <a href="javascript:alert('感谢投票！😀\n不过这其实没用😂')">是的，你应该用Emoji</a><br>
+          <a href="javascript:alert('感谢投票！\n不过这其实没用;-P')">不，你永远不应该用Emoji</a><br>
+          <a href="javascript:alert('那你投票干什么呢？？')">我不确定</a><br>
         </p>
       </details>
       <details>
@@ -162,19 +158,19 @@
       </details>
       <h2>(2025/07/31) 不是关于Moonday的新闻</h2>
       <p>
-        所以我们在导航栏上加了“新东西”。<br />
-        什么？你说你近视看不见导航栏？<br />
+        所以我们在导航栏上加了“新东西”。<br>
+        什么？你说你近视看不见导航栏？<br>
         那就点<h2><a href="/encode/">这个</a></h2>！！！！！
       </p>
       <h2>(2025/07/20) 国际月球日，我们做了什么？</h2>
       <p>
-        A：我们发布了《Moonday》（Demo）……<br />
-        ……的Demo。<br />
-        我们该怎么称呼它？<br />
-        《Moonday》（Demo）（Demo）？<br />
-        或者<br />
-        Moonday Beta 0.2.0 (Release_ZH_CN, 本地 Windows 调试器, 预处理器定义: NDEBUG; _CONSOLE; LANG_ZH_CN; %(PreprocessorDefinitions))<br />
-        ？<br />
+        A：我们发布了《Moonday》（Demo）……<br>
+        ……的Demo。<br>
+        我们该怎么称呼它？<br>
+        《Moonday》（Demo）（Demo）？<br>
+        或者<br>
+        Moonday Beta 0.2.0 (Release_ZH_CN, 本地 Windows 调试器, 预处理器定义: NDEBUG; _CONSOLE; LANG_ZH_CN; %(PreprocessorDefinitions))<br>
+        ？<br>
         额，要不还是<a href="/Moonday_0.2.0_EN.zip"><em>Moonday Beta 0.2.0</em></a>吧。
       </p>
       <h2>(2025/07/19) 我们其实不想写这个的</h2>
@@ -183,22 +179,22 @@
         <details>
           <summary>我们不想写的东西 #1</summary>
           <p>
-            是的，我们终于把字体换成了11x11。<br />
+            是的，我们终于把字体换成了11x11。<br>
             预览：<a href="/battleNewEnglish.png">英文</a>，<a href="/battleNewChinese.png">中文</a>
           </p>
         </details>
         <details>
           <summary>我们不想写的东西 #2</summary>
           <p>
-            我们！就是！没法！给上面那个“切换主题”按钮一个天杀的合适配色！（2025/07/31：我们找到了）<br />
+            我们！就是！没法！给上面那个“切换主题”按钮一个天杀的合适配色！（2025/07/31：我们找到了）<br>
             如果你有什么好想法，请务必<a href="contact-us/">联系我们</a>。
           </p>
         </details>
         <details>
           <summary>我们不想写的东西 #3</summary>
           <p>
-            啊？？等下，所以“未知的杂注‘GCC’”意思就真的是Visual Studio认不得“GCC”这个pragma？？<br />
-            <span>这下没有</span><span class="gradient-text2"><b>-O3之力</b></span><span>了。</span>
+            啊？？等下，所以“未知的杂注‘GCC’”意思就真的是Visual Studio认不得“GCC”这个pragma？？<br>
+            <span>这下没有</span><span class="gradient-text1"><b>-O3之力</b></span><span>了。</span>
           </p>
         </details>
       </p>
@@ -214,15 +210,15 @@
       <h1>新闻</h1>
       <h2>(2025/07/12) 又来……？</h2>
       <p>
-        又是我们。<br />
-        今日工作：简体中文本地化。<br />
-        点击&gt;<a href="/dialogChinese.png">此处</a>&lt;查看成果。<br />
+        又是我们。<br>
+        今日工作：简体中文本地化。<br>
+        点击&gt;<a href="/dialogChinese.png">此处</a>&lt;查看成果。<br>
         （8x8的字体似乎不太适合中文...）
       </p>
       <h2>(2025/07/10) 是的，我们回来了</h2>
       <p>
-        在这三周期间我们当然下功夫在游戏上了。我们也有努力尝试不玩起床战争。<br />
-        下面是内容速览：<br />
+        在这三周期间我们当然下功夫在游戏上了。我们也有努力尝试不玩起床战争。<br>
+        下面是内容速览：<br>
         <details>
           <summary>好消息 :-) #1</summary>
           <p>我们终于做到了！<a href="/battle.png">战斗系统</a>！</p>
@@ -230,7 +226,7 @@
         <details>
           <summary>好消息 :-) #2</summary>
           <p>
-            <span>我们稍微优化了一下代码（主要凭借</span><span class="gradient-text2"><b>-O3之力</b></span><span>），总之，就是更好了。</span>
+            <span>我们稍微优化了一下代码（主要凭借</span><span class="gradient-text1"><b>-O3之力</b></span><span>），总之，就是更好了。</span>
           </p>
         </details>
         <details>
@@ -240,47 +236,47 @@
         <details>
           <summary>其他</summary>
           <p>
-            - 现在搜索框默认隐藏。按下S键以显示/隐藏它。<br />
-            - 添加了版权声明。<br />
+            - 现在搜索框默认隐藏。按下S键以显示/隐藏它。<br>
+            - 添加了版权声明。<br>
             - <b>永远不要</b>缩小你的浏览器窗口。<b>总是</b>保持你的浏览器窗口最大化，否则<b>没有东西</b>会看着舒服的。
           </p>
         </details>
       </p>
       <h2>
-        <span>(2025/06/17) 关于我们</span><span class="gradient-text1">游戏Demo</span><span>的一些消息</span>
+        <span>(2025/06/17) 关于我们</span><span class="gradient-text0">游戏Demo</span><span>的一些消息</span>
       </h2>
       <p>
-        我们第一款由纯C++开发的游戏，《Moonday》（Demo）将在今年夏天发布。<br />
-        ……大概吧？可能在七月末或者八月初左右。<br />
-        <hr />
-        号外：<br />
-        另一款由Scratch开发的游戏，《几何战士》，也将发布。<br />
-        届时会有两种版本：一种是.sb3源代码，另一种是.exe可执行文件。<br />
-        <hr />
+        我们第一款由纯C++开发的游戏，《Moonday》（Demo）将在今年夏天发布。<br>
+        ……大概吧？可能在七月末或者八月初左右。<br>
+        <hr>
+        号外：<br>
+        另一款由Scratch开发的游戏，《几何战士》，也将发布。<br>
+        届时会有两种版本：一种是.sb3源代码，另一种是.exe可执行文件。<br>
+        <hr>
         总之，等我们的好消息！</a>
       </p>
       <h2>&lt;-END-&gt;</h2>
     </div>
-    <div class="container-wrapper">
-      <p id="page-left" class="black-text page-button" style="left:-5vw;" onclick="prevPage()">⯇</p>
-      <p id="page-right" class="black-text page-button" style="right:-5vw;" onclick="nextPage()">⯈</p>
-    </div>
-    <input id="search" type="text" placeholder="跳转至页面..." class="search-box" onkeypress="submitJump(event)"></input>
-    <footer id="footer" class="black-text"></footer>
+    <div id="page-btn"></div>
+    <input id="search">
+    <footer id="footer"></footer>
     <script>
       const pun = document.getElementById("the-most-awesome-pun-ever");
       let counter = 0;
 
       function wowPun() {
-        counter %= 3;
+        counter %= 4;
         if (counter == 0) {
-          pun.textContent = "(2025/08/05, #2) 开发者杳志";
-        }
-        else if (counter == 1) {
           pun.textContent = "(2025/08/05, #2) 开发者日志";
         }
-        else {
+        else if (counter == 1) {
+          pun.textContent = "(2025/08/05, #2) 开发者杳志";
+        }
+        else if (counter == 2) {
           pun.textContent = "(2025/08/05, #2) 开发者木志";
+        }
+        else {
+          pun.textContent = "(2025/08/05, #2) 开发者杲志"
         }
         ++counter;
       }

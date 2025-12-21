@@ -6,37 +6,34 @@
     <title>Arcsin Studios - Encode</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/logo-small.png" type="image/png">
-    <script src="/scripts.js"></script>
+    <script src="/scripts.js" defer></script>
   </head>
   <body id="page" class="light-background">
-    <img src="/Moonday.png" alt="logo-big" class="logo"/>
-    <div class="gradient-text1" style="text-align:center;">
-      <h1>Special: Encode</h1>
-    </div>
-    <div class="gradient-text2" style="text-align:center;">
-      <h2>Obfuscate your message!</h2>
-    </div>
+    <img src="/Moonday.png" alt="logo-big" class="logo">
+    <button id="theme-btn"></button>
+    <div id="title" data-text="Special: Encode"></div>
+    <div id="subtitle" data-text="Obfuscate your message!"></div>
     <div class="content-container" style="border-radius:20px;">
       <h1 id="title">How to Use</h1>
       <h2 id="encode-title">Encoding</h2>
       <p id="encode-content">
-        1. Type "index.html?e=" in the address bar right after the "/". (Do not select the whole URL when typing!)<br />
-        - If there's no "/", add one manually.<br />
-        2. After "?e=", type the message you want to encode.<br />
-        3. That's it!<br />
-        4. If you want to customise characters which are used to replace zeroes and ones, do like this:<br />
-        - Add "zeroes=" right after the "?", then the character (only one!) you want, then "&".<br />
+        1. Type "index.html?e=" in the address bar right after the "/". (Do not select the whole URL when typing!)<br>
+        - If there's no "/", add one manually.<br>
+        2. After "?e=", type the message you want to encode.<br>
+        3. That's it!<br>
+        4. If you want to customise characters which are used to replace zeroes and ones, do like this:<br>
+        - Add "zeroes=" right after the "?", then the character (only one!) you want, then "&".<br>
         - Add "ones=" right after the "&", then the character (only one!) you want, then "&".
       </p>
       <h2 id="decode-title">Decoding</h2>
       <p id="decode-content">Your friend (or the one who sent you this) will probably provide you with a URL. Replace the URL in the address bar with that.</p>
       <h2>Notice</h2>
       <p>
-        Use this tool without worrying about "Will my information be stolen?".<br />
+        Use this tool without worrying about "Will my information be stolen?".<br>
         Our tool runs completely on the front-end and nothing will be uploaded to the server (but actually, GitHub Pages doesn't even have this feature).
       </p>
     </div>
-    <footer class="black-text" id="footer"></footer>
+    <footer id="footer"></footer>
     <style>
       #decode-content {
         white-space: pre-wrap;

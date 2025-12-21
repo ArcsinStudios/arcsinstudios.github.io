@@ -9,15 +9,11 @@
     <script src="scripts.js" defer></script>
   </head>
   <body id="page" class="light-background">
-    <img src="logo-big.png" alt="logo-big" class="logo" onclick="checkEasterEgg()"/>
-    <button type="button" class="lang-button" style="position:absolute; top:10px; right:225px;" onclick="navigateTo('zh-cn/')">中文</button>
-    <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">Toggle Theme</button>
-    <div class="gradient-text1" style="text-align:center;">
-      <h1>~ Arcsin Studios ~</h1>
-    </div>
-    <div class="gradient-text2" style="text-align:center;">
-      <h2>Craft · Narrate · Code</h2>
-    </div>
+    <img src="logo-big.png" alt="logo-big" class="logo" onclick="checkEasterEgg()">
+    <button id="lang-btn"></button>
+    <button id="theme-btn"></button>
+    <div id="title"></div>
+    <div id="subtitle"></div>
     <div id="page1" class="content-container">
       <p>
         Nav:
@@ -29,10 +25,10 @@
       <h1>News</h1>
       <h2>(2025/12/20) The Upcoming Christmas</h2>
       <p>
-        How're you doing everyone?<br />
-        Christmas is coming, and we wish you a Merry Christmas, we wish you a Merry Christmas, and a Happy New Year...<br />
-        Oops, accidentally sang it out.<br />
-        Back to the main topic, we're very glad to see so many fascinating changes on LAUNCH these days.<br />
+        How're you doing everyone?<br>
+        Christmas is coming, and we wish you a Merry Christmas, we wish you a Merry Christmas, and a Happy New Year...<br>
+        Oops, accidentally sang it out.<br>
+        Back to the main topic, we're very glad to see so many fascinating changes on LAUNCH these days.<br>
         And, about our games:
         <ul style="width:900px;">
           <li>1. About <em>Moonday</em> : Sadly, we're too busy working on LAUNCH to keep <em>Moonday</em> updating. We're sorry for letting you disappointed (if you are disappointed indeed).</li>
@@ -42,19 +38,19 @@
       </p>
       <h2>(2025/11/09) Launching LAUNCH</h2>
       <p>
-        We made a C++ library, LAUNCH!<br />
-        Check it out on GitHub: <a href="https://github.com/ArcsinStudios/launch">[[GitHub repo]]</a><br />
+        We made a C++ library, LAUNCH!<br>
+        Check it out on GitHub: <a href="https://github.com/ArcsinStudios/launch">[[GitHub repo]]</a><br>
         We also posted it on <a href="https://www.reddit.com/r/cpp/comments/1nvqyyi/c_show_and_tell_october_2025">Reddit</a>!
       </p>
       <h2>(2025/08/25 & 2025/08/30) Brand new versions</h2>
       <p>
-        <a href="Moonday_0.3.3_Releases.zip">0.3.3: it's here!</a><br />
-        And the next one,<br />
-        It is definitely the greatest,<br />
-        the most fascinating,<br />
-        the most stunning,<br />
-        and the most [[supercalifragilisticexpialidocious]] update ever.<br />
-        Not kidding.<br />
+        <a href="Moonday_0.3.3_Releases.zip">0.3.3: it's here!</a><br>
+        And the next one,<br>
+        It is definitely the greatest,<br>
+        the most fascinating,<br>
+        the most stunning,<br>
+        and the most [[supercalifragilisticexpialidocious]] update ever.<br>
+        Not kidding.<br>
         <a href="Moonday_0.4.0_Releases.zip">0.4.0: it's here!!</a>
       </p>
       <h2>(2025/08/19) Announcing a better <em>Moonday</em></h2>
@@ -62,7 +58,7 @@
         <div>
           <blockquote>
             <p>
-              If I pretend I'm the one who made Windows API,<br />
+              If I pretend I'm the one who made Windows API,<br>
               then I will call it <span title="Expands to: MoondayExW"><a href="/index.html#MoondayEx-Code">MoondayEx</a></span>.
             </p>
           </blockquote>
@@ -70,14 +66,14 @@
         </div>
         <div id="MoondayEx-Code">
           <code>
-            #ifdef UNICODE<br />
-            #define MoondayEx MoondayExW<br />
-            #else<br />
-            #define MoondayEx MoondayExA<br />
+            #ifdef UNICODE<br>
+            #define MoondayEx MoondayExW<br>
+            #else<br>
+            #define MoondayEx MoondayExA<br>
             #endif // !UNICODE
           </code>
         </div>
-        Hmm. Let's get straight to the point.<br />
+        Hmm. Let's get straight to the point.<br>
         Why is it "better"?
         <ul style="width:550px;">
           <li>1. Because we fixed a bug (<a href="arcjira/index.html#MD-5">MD-5</a>).</li>
@@ -86,13 +82,13 @@
           <li>4. Because you can now see your and your enemies' HP in battles.</li>
           <li>5. Please Enter Text</li>
         </ul>
-        Notice that:<br />
-        We are not going to release this new version immediately.<br />
+        Notice that:<br>
+        We are not going to release this new version immediately.<br>
         Forgive us :-(
         <details>
           <summary>Footnotes</summary>
           <p>
-            [1] swprintf 😎👍<br />
+            [1] swprintf 😎👍<br>
           </p>
         </details>
       </p>
@@ -117,15 +113,15 @@
       </h2>
       <p>
         <p>
-          Fake Log:<br />
-          Now we have scene 5, and we tried to add a jumpscare.<br />
-          (Kind of scary? IDK ¯\_(ツ)_/¯)<br />
-          It doesn't even deserve the name "jumpscare".<br />
+          Fake Log:<br>
+          Now we have scene 5, and we tried to add a jumpscare.<br>
+          (Kind of scary? IDK ¯\_(ツ)_/¯)<br>
+          It doesn't even deserve the name "jumpscare".<br>
           It's just <a href="maybeNewEnemy.png">a strange slime</a> approaching at Mach speed.
         </p>
         <details>
           <summary>True Log</summary>
-          <img src="Oak_Log_Axis_Y_JE5_BE3.png" alt="A true log"/>
+          <img src="Oak_Log_Axis_Y_JE5_BE3.png" alt="A true log">
         </details>
       </p>
       <h2>(2025/08/05, #1) This is written in three paragraphs<sup>[1]</sup></h2>
@@ -133,8 +129,8 @@
         <details>
           <summary>Paragraph #1</summary>
           <p>
-            <a href="scene5.png">Scene 5</a> is coming!<br />
-            <a href="maybeNewEnemy.png">A new enemy</a> is coming!<br />
+            <a href="scene5.png">Scene 5</a> is coming!<br>
+            <a href="maybeNewEnemy.png">A new enemy</a> is coming!<br>
             Everything has been making progress so far!
           </p>
         </details>
@@ -142,12 +138,12 @@
           <summary>Paragraph #2</summary>
           <p style="font-size:xx-large;">🤔</p>
           <p>
-            Do you guys think that we should use Emojis in the news?<br />
-            Well, still, 👉<a href="contact-us/">contact us</a>👈.<br />
-            If you prefer voting online:<br />
-            <a href="javascript:alert('Thank you for voting!😀\nBut actually this does not work😂')">Yes, you should use Emojis</a><br />
-            <a href="javascript:alert('Thank you for voting!\nBut actually this does not work ;-P')">No, you should never use Emojis</a><br />
-            <a href="javascript:alert('Then why did you vote??')">I'm not sure</a><br />
+            Do you guys think that we should use Emojis in the news?<br>
+            Well, still, 👉<a href="contact-us/">contact us</a>👈.<br>
+            If you prefer voting online:<br>
+            <a href="javascript:alert('Thank you for voting!😀\nBut actually this does not work😂')">Yes, you should use Emojis</a><br>
+            <a href="javascript:alert('Thank you for voting!\nBut actually this does not work ;-P')">No, you should never use Emojis</a><br>
+            <a href="javascript:alert('Then why did you vote??')">I'm not sure</a><br>
           </p>
         </details>
         <details>
@@ -171,19 +167,19 @@
       </p>
       <h2>(2025/07/31) Not news about Moonday</h2>
       <p>
-        So we've added "Something New" to the nav bar.<br />
-        What? You said you're nearsighted and cannot see the nav bar?<br />
+        So we've added "Something New" to the nav bar.<br>
+        What? You said you're nearsighted and cannot see the nav bar?<br>
         Then click <h2><a href="encode/">THIS</a></h2>!!!!!
       </p>
       <h2>(2025/07/20) International Moon Day, what did we do?</h2>
       <p>
-        A: We released <em>Moonday (Demo)</em>...<br />
-        ...'s demo.<br />
-        What shall we call it?<br />
-        <em>Moonday (Demo) (Demo)</em>?<br />
-        Or<br />
-        Moonday Beta 0.2.0 (Release_EN, Local Windows Debugger, Preprocessor Definitions: NDEBUG; _CONSOLE; LANG_EN; %(PreprocessorDefinitions))<br />
-        ?<br />
+        A: We released <em>Moonday (Demo)</em>...<br>
+        ...'s demo.<br>
+        What shall we call it?<br>
+        <em>Moonday (Demo) (Demo)</em>?<br>
+        Or<br>
+        Moonday Beta 0.2.0 (Release_EN, Local Windows Debugger, Preprocessor Definitions: NDEBUG; _CONSOLE; LANG_EN; %(PreprocessorDefinitions))<br>
+        ?<br>
         Uh, Maybe <a href="Moonday_0.2.0_EN.zip"><em>Moonday Beta 0.2.0</em></a>.
       </p>
       <h2>(2025/07/19) We actually didn't want to write this</h2>
@@ -192,23 +188,23 @@
         <details>
           <summary>Thing we didn't want to write #1</summary>
           <p>
-            Yup, we finally changed the font into 11x11.<br />
+            Yup, we finally changed the font into 11x11.<br>
             Preview: <a href="battleNewEnglish.png">English</a>, <a href="battleNewChinese.png">Chinese</a>
           </p>
         </details>
         <details>
           <summary>Thing we didn't want to write #2</summary>
           <p>
-            WE! JUST! CANNOT! FIND! A freaking suitable palette for that "Toggle Theme" button up there! (2025/07/31: We found it)<br />
+            WE! JUST! CANNOT! FIND! A freaking suitable palette for that "Toggle Theme" button up there! (2025/07/31: We found it)<br>
             If you have an idea about this, please <a href="contact-us/">contact us</a>.
           </p>
         </details>
         <details>
           <summary>Thing we didn't want to write #3</summary>
           <p>
-            Huh?? Wait, so "unknown pragma 'GCC'" literally means Visual Studio can't recognise the pragma "GCC"??<br />
+            Huh?? Wait, so "unknown pragma 'GCC'" literally means Visual Studio can't recognise the pragma "GCC"??<br>
             <span>No</span>
-            <span class="gradient-text2"><b>POWER OF -O3</b></span>
+            <span class="gradient-text1"><b>POWER OF -O3</b></span>
             <span>this time.</span>
           </p>
         </details>
@@ -225,15 +221,15 @@
       <h1>News</h1>
       <h2>(2025/07/12) Yet another...?</h2>
       <p>
-        Us again.<br />
-        Today's work: Chinese (Simplified) localization.<br />
-        Check &gt;<a href="dialogChinese.png">here</a>&lt; for the results.<br />
+        Us again.<br>
+        Today's work: Chinese (Simplified) localization.<br>
+        Check &gt;<a href="dialogChinese.png">here</a>&lt; for the results.<br>
         (An 8x8 font seems to be not quite suitable for Chinese...)
       </p>
       <h2>(2025/07/10) Yes, we're back</h2>
       <p>
-        Of course we worked on our game during the past three weeks. And we were trying not to play Bedwars.<br />
-        Have a quick look at what's going on:<br />
+        Of course we worked on our game during the past three weeks. And we were trying not to play Bedwars.<br>
+        Have a quick look at what's going on:<br>
         <details>
           <summary>Good News :-) #1</summary>
           <p>We finally did it! The <a href="battle.png">battle system</a>!</p>
@@ -242,7 +238,7 @@
           <summary>Good News :-) #2</summary>
           <p>
             <span>We optimized our code a bit (mostly by</span>
-            <span class="gradient-text2"><b>THE POWER OF -O3</b></span><span>) so it's, better.</span>
+            <span class="gradient-text1"><b>THE POWER OF -O3</b></span><span>) so it's, better.</span>
           </p>
         </details>
         <details>
@@ -252,33 +248,30 @@
         <details>
           <summary>Others</summary>
           <p>
-            - Now the search box is hidden by default. Press S to show/hide the search box.<br />
-            - Added copyright notice.<br />
+            - Now the search box is hidden by default. Press S to show/hide the search box.<br>
+            - Added copyright notice.<br>
             - NEVER resize the browser window. ALWAYS view this web page with your browser window maximized or NOTHING will look normal.
           </p>
         </details>
       </p>
       <h2>
         <span>(2025/06/17) Some words about our</span>
-        <span class="gradient-text1">Game Demo</span>
+        <span class="gradient-text0">Game Demo</span>
       </h2>
       <p>
-        Our first game made by pure C++, <em>Moonday (Demo)</em>, will be releasing this summer.<br />
-        Actually, maybe. In late July, early August or something like that.<br />
-        <hr />
-        Extra:<br />
-        Another game made by Scratch, <em>Geometry Warrior</em>, will also be released.<br />
-        There will be two editions: one in .sb3, one in .exe.<br />
-        <hr />
+        Our first game made by pure C++, <em>Moonday (Demo)</em>, will be releasing this summer.<br>
+        Actually, maybe. In late July, early August or something like that.<br>
+        <hr>
+        Extra:<br>
+        Another game made by Scratch, <em>Geometry Warrior</em>, will also be released.<br>
+        There will be two editions: one in .sb3, one in .exe.<br>
+        <hr>
         Whatever, just wait for our good news!
       </p>
       <h2>&lt;-END-&gt;</h2>
     </div>
-    <div class="container-wrapper">
-      <p id="page-left" class="black-text page-button" style="left:-5vw;" onclick="prevPage()">⯇</p>
-      <p id="page-right" class="black-text page-button" style="right:-5vw;" onclick="nextPage()">⯈</p>
-    </div>
-    <input id="search" type="text" placeholder="Jump to page..." class="search-box" onkeypress="submitJump(event)"></input>
-    <footer class="black-text" id="footer"></footer>
+    <div id="page-btn"></div>
+    <input id="search">
+    <footer id="footer"></footer>
   </body>
 </html>

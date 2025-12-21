@@ -6,22 +6,18 @@
     <title>Arcsin Studios</title>
     <link rel="stylesheet" href="/styles.css">
     <link rel="icon" href="/logo-small.png" type="image/png">
-    <script src="/scripts.js"></script>
+    <script src="/scripts.js" defer></script>
   </head>
   <body id="page" class="light-background">
-    <img src="/logo-big.png" alt="logo-big" class="logo"/>
-    <button type="button" class="theme-button" style="position:absolute; top:10px; right:10px;" onclick="toggleTheme()">Toggle Theme</button>
-    <div class="gradient-text1" style="text-align:center;">
-      <h1>~ Arcsin Studios ~</h1>
-    </div>
-    <div class="gradient-text2" style="text-align:center;">
-      <h2>Craft · Narrate · Code</h2>
-    </div>
+    <img src="/logo-big.png" alt="logo-big" class="logo">
+    <button id="theme-btn"></button>
+    <div id="title"></div>
+    <div id="subtitle"></div>
     <div class="content-container">
-      <br />
-      <img src="text-arcsin.gif" alt="text-arcsin"/>
-      <img src="text-is.gif" alt="text-arcsin"/>
-      <img src="text-us.gif" alt="text-arcsin"/>
+      <br>
+      <img src="text-arcsin.gif" alt="text-arcsin">
+      <img src="text-is.gif" alt="text-arcsin">
+      <img src="text-us.gif" alt="text-arcsin">
       <a href="/"><h2>&lt;-ALL IS DONE-&gt;</h2></a>
     </div>
     <h4 class="adaptive-text">
@@ -32,6 +28,6 @@
       64 69 6f 73 2e 67 69 74 68 75 62 2e 69 6f 2f 72 65 63 6f 76 65 72 79 22 3e 68 65 72 65 3c 2f
       61 3e 20 74 6f 20 67 65 74 20 6d 6f 72 65 20 69 6e 66 6f 72 6d 61 74 69 6f 6e 2e
     </h4>
-    <footer class="black-text" id="footer"></footer>
+    <footer id="footer"></footer>
   </body>
 </html>

@@ -37,6 +37,7 @@ var page = document.getElementById("page");
 var pageLeft = document.getElementById("page-left");
 var pageRight = document.getElementById("page-right");
 var footer = document.getElementById("footer");
+var blueOrPurple = document.getElementById("blue-or-purple");
 /* ^^^ ELEMENT ^^^ */
 
 /* vvv PAGE vvv */
@@ -61,6 +62,10 @@ initStupid();
 /* vvv LISTENER vvv */
 document.addEventListener("keydown", handleKeydown);
 /* ^^^ LISTENER ^^^ */
+
+/* vvv DISPLAY vvv */
+page.style.display = "block";
+/* ^^^ DISPLAY ^^^ */
 
 /* vvv FUNCTION vvv */
 /* vvv HELPER vvv */
@@ -255,37 +260,64 @@ function initTheme() {
         page.classList.add("dark-background");
         footer.classList.remove("black-text");
         footer.classList.add("white-text");
-        if (pageLeft !== null && pageRight !== null) {
+        if (pageLeft && pageRight) {
             pageLeft.classList.remove("black-text");
             pageRight.classList.remove("black-text");
             pageLeft.classList.add("white-text");
             pageRight.classList.add("white-text");
         }
+        if (blueOrPurple) {
+            l10nHelper(
+                function() {
+                    blueOrPurple.textContent = "purple";
+                },
+                function() {
+                    blueOrPurple.textContent = "紫色";
+                }
+            );
+        }
     }
-    page.style.display = "block";
 }
 
 function toggleTheme() {
-    var page = document.getElementById("page");
-    var footer = document.getElementById("footer");
-    var pageLeft = document.getElementById("page-left");
-    var pageRight = document.getElementById("page-right");
-    var theme = localStorage.getItem("theme");
-    if (theme === null || theme === "light") {
+    if (!theme || theme === "light") {
         localStorage.setItem("theme", "dark");
     }
     else {
         localStorage.setItem("theme", "light");
     }
+    theme = localStorage.getItem("theme");
     page.classList.toggle("light-background");
     page.classList.toggle("dark-background");
     footer.classList.toggle("black-text");
     footer.classList.toggle("white-text");
-    if (pageLeft !== null && pageRight !== null) {
+    if (pageLeft && pageRight) {
         pageLeft.classList.toggle("black-text");
         pageRight.classList.toggle("black-text");
         pageLeft.classList.toggle("white-text");
         pageRight.classList.toggle("white-text");
+    }
+    if (blueOrPurple) {
+        if (theme === "light") {
+            l10nHelper(
+                function() {
+                    blueOrPurple.textContent = "blue";
+                },
+                function() {
+                    blueOrPurple.textContent = "蓝色";
+                }
+            );
+        }
+        else {
+            l10nHelper(
+                function() {
+                    blueOrPurple.textContent = "purple";
+                },
+                function() {
+                    blueOrPurple.textContent = "紫色";
+                }
+            );
+        }
     }
 }
 /* ^^^ THEME ^^^ */
@@ -322,7 +354,7 @@ function handleKeydown(event) {
 
 /* vvv NAVIGATION vvv */
 function initStupid() {
-    if (stupid === null) {
+    if (!stupid) {
         stupid = "0";
         localStorage.setItem("stupid", stupid);
     }

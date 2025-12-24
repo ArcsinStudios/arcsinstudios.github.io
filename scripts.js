@@ -29,27 +29,27 @@ genFooter();
 
 /* vvv VARIABLE vvv */
 /* vvv SWITCH vvv */
-var searchBoxVisible = false;
+let searchBoxVisible = false;
 /* ^^^ SWITCH ^^^ */
 
 /* vvv ELEMENT vvv */
-var page = document.getElementById("page");
-var pageLeft = document.getElementById("page-left");
-var pageRight = document.getElementById("page-right");
-var footer = document.getElementById("footer");
-var blueOrPurple = document.getElementById("blue-or-purple");
+let page = document.getElementById("page");
+let pageLeft = document.getElementById("page-left");
+let pageRight = document.getElementById("page-right");
+let footer = document.getElementById("footer");
+let blueOrPurple = document.getElementById("blue-or-purple");
 /* ^^^ ELEMENT ^^^ */
 
 /* vvv PAGE vvv */
-var currPage = 1;
-var minPage = 1;
-var maxPage = 3;
-var pages = [];
+let currPage = 1;
+let minPage = 1;
+let maxPage = 3;
+let pages = [];
 /* ^^^ PAGE ^^^ */
 
 /* vvv LOCAL STORAGE vvv */
-var theme = localStorage.getItem("theme");
-var stupid = localStorage.getItem("stupid");
+let theme = localStorage.getItem("theme");
+let stupid = localStorage.getItem("stupid");
 /* ^^^ LOCAL STORAGE ^^^ */
 /* ^^^ VARIABLE ^^^ */
 
@@ -81,14 +81,14 @@ function l10nHelper(func0, func1) {
 
 /* vvv GENERATION vvv */
 function genLangBtn() {
-    var langBtn = document.getElementById("lang-btn");
+    let langBtn = document.getElementById("lang-btn");
     if (langBtn) {
         langBtn.setAttribute("type", "button");
         langBtn.classList.add("lang-button");
         langBtn.style.position = "absolute";
-        var text0;
-        var text1;
-        var text2;
+        let text0;
+        let text1;
+        let text2;
         l10nHelper(
             function() {
                 text0 = "/zh-cn" + window.location.pathname;
@@ -110,7 +110,7 @@ function genLangBtn() {
 }
 
 function genThemeBtn() {
-    var themeBtn = document.getElementById("theme-btn");
+    let themeBtn = document.getElementById("theme-btn");
     if (themeBtn) {
         themeBtn.setAttribute("onclick", "toggleTheme()");
         themeBtn.setAttribute("type", "button");
@@ -130,8 +130,8 @@ function genThemeBtn() {
 }
 
 function genTitle() {
-    var title = document.getElementById("title");
-    var text0;
+    let title = document.getElementById("title");
+    let text0;
     if (title) {
         text0 = title.dataset.text;
         if (!text0) {
@@ -144,8 +144,8 @@ function genTitle() {
 }
 
 function genSubtitle() {
-    var subtitle = document.getElementById("subtitle");
-    var text0;
+    let subtitle = document.getElementById("subtitle");
+    let text0;
     if (subtitle) {
         text0 = subtitle.dataset.text;
         if (!text0) {
@@ -165,7 +165,7 @@ function genSubtitle() {
 }
 
 function genPageBtn() {
-    var pageBtn = document.getElementById("page-btn");
+    let pageBtn = document.getElementById("page-btn");
     if (pageBtn) {
         pageBtn.classList.add("container-wrapper");
         pageBtn.innerHTML = "\
@@ -176,7 +176,7 @@ function genPageBtn() {
 }
 
 function genSearch() {
-    var search = document.getElementById("search");
+    let search = document.getElementById("search");
     if (search) {
         search.setAttribute("onkeypress", "submitJump(event)");
         search.setAttribute("type", "text");
@@ -193,14 +193,14 @@ function genSearch() {
 }
 
 function genFooter() {
-    var footer = document.getElementById("footer");
+    let footer = document.getElementById("footer");
     if (footer) {
         footer.classList.add("black-text");
-        var text0 = new Date().getFullYear();
-        var text1;
-        var text2;
-        var text3;
-        var text4;
+        let text0 = new Date().getFullYear();
+        let text1;
+        let text2;
+        let text3;
+        let text4;
         l10nHelper(
             function() {
                 text1 = ". ";
@@ -326,7 +326,7 @@ function toggleTheme() {
 function handleKeydown(event) {
     if (event.code === "KeyS") {
         if (document.activeElement.tagName !== "INPUT") {
-            var searchBox = document.getElementById("search");
+            let searchBox = document.getElementById("search");
             event.preventDefault();
             searchBoxVisible = !searchBoxVisible;
             if (searchBoxVisible) {
@@ -365,7 +365,7 @@ function navigateTo(url) {
 }
 
 function getSearch() {
-    var input = document.getElementById("search");
+    let input = document.getElementById("search");
     return input.value;
 }
 
@@ -391,7 +391,7 @@ function checkMalicious(input) {
 }
 
 function submitJump(event) {
-    var input = getSearch();
+    let input = getSearch();
     if (event.code === "Enter") {
         if (checkMalicious(input)) {
             if (input === "http://" || input === "https://") {

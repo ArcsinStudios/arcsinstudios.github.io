@@ -1,0 +1,25 @@
+body {
+    display: grid;
+    grid-template-rows: 70vh 30vh;
+    margin: 0;
+}
+
+.game-ui {
+    display: grid;
+    grid-template-columns: 80vw 20vw;
+}
+
+.game-container {
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    overflow: hidden;
+}
+
+.game-sidebar {
+    background-color: lime;
+}
+
+.game-narrator {
+    background-color: blue;
+}

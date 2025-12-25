@@ -324,7 +324,7 @@ function toggleTheme() {
 
 /* vvv LISTENER vvv */
 function handleKeydown(event) {
-    if (event.code === "KeyS") {
+    if (event.key === "s" || event.key === "S") {
         if (document.activeElement.tagName !== "INPUT") {
             let searchBox = document.getElementById("search");
             event.preventDefault();
@@ -337,13 +337,13 @@ function handleKeydown(event) {
             }
         }
     }
-    else if (event.code === "KeyA" || event.code == "ArrowLeft") {
+    else if (event.key === "a" || event.key === "A" || event.key == "ArrowLeft") {
         if (document.activeElement.tagName !== "INPUT") {
             event.preventDefault();
             prevPage();
         }
     }
-    else if (event.code === "KeyD" || event.code == "ArrowRight") {
+    else if (event.key === "d" || event.key === "D" || event.key == "ArrowRight") {
         if (document.activeElement.tagName !== "INPUT") {
             event.preventDefault();
             nextPage();

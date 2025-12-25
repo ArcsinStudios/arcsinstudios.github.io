@@ -1,18 +1,26 @@
 "use strict";
 
+class Item {
+    constructor(name, sprite) {
+        this.name = name;
+        this.sprite = sprite;
+    }
+}
+
 class Input {
-    constructor(x, y, direction) {
+    constructor(x, y, dir) {
         this.x = x;
         this.y = y;
-        this.direction = direction;
+        this.dir = dir;
+        this.buffer = null;
     }
 }
 
 class Output {
-    constructor(x, y, direction) {
+    constructor(x, y, dir) {
         this.x = x;
         this.y = y;
-        this.direction = direction;
+        this.dir = dir;
     }
 }
 
@@ -20,61 +28,122 @@ class Blueprint {
     constructor(XScale, YScale, inputs, outputs, handleTime, sprite) {
         this.XScale = XScale;
         this.YScale = YScale;
-        this.inputs = inputs;
-        this.outputs = outputs;
+        this.inputs = inputs.map(
+            function(input) {
+                return new Input(input.x, input.y, input.dir);
+            }
+        );
+        this.outputs = outputs.map(
+            function(output) {
+                return new Output(output.x, output.y, output.dir);
+            }
+        );
         this.handleTime = handleTime;
         this.sprite = sprite;
     }
 }
 
 class Building {
-    constructor(blueprint, XPos, YPos, direction) {
-        this.blueprint = blueprint;
+    constructor(blueprint, XPos, YPos, dir) {
+        this.blueprint = new Blueprint(blueprint.XScale, blueprint.YScale, blueprint.inputs, blueprint.outputs, blueprint.handleTime, blueprint.sprite);
         this.XPos = XPos;
         this.YPos = YPos;
-        this.direction = direction;
-    }
-
-    draw(canvasContext) {
-        if (this.direction === 0) {
-            canvasContext.drawImage(this.blueprint.sprite, this.XPos, this.YPos);
+        this.XGridPos = this.XPos / 24;
+        this.YGridPos = this.YPos / 24;
+        this.dir = dir;
+        this.currHandleTime = 0;
+        if (dir === 0) {
             return;
         }
-        canvasContext.save();
-        canvasContext.translate(this.XPos + tileSize / 2, this.YPos + tileSize / 2);
-        if (this.direction === 2 || this.direction === 3) {
-            canvasContext.scale(-1, 1);
+        let angle = this.dir * Math.PI / 2;
+        if (dir !== 2) {
+            let temp = this.blueprint.XScale;
+            this.blueprint.XScale = this.blueprint.YScale;
+            this.blueprint.YScale = temp;
         }
-        if (this.direction === 1 || this.direction === 3) {
-            canvasContext.rotate(-Math.PI / 2);
+        for (let input of this.blueprint.inputs) {
+            let _x = input.x;
+            let _y = input.y;
+            input.x = Math.round(_x * Math.cos(angle) - _y * Math.sin(angle));
+            input.y = Math.round(_x * Math.sin(angle) + _y * Math.cos(angle));
+            input.dir = (input.dir + this.dir) % 4;
+        }
+        for (let output of this.blueprint.outputs) {
+            let _x = output.x;
+            let _y = output.y;
+            output.x = Math.round(_x * Math.cos(angle) - _y * Math.sin(angle));
+            output.y = Math.round(_x * Math.sin(angle) + _y * Math.cos(angle));
+            output.dir = (output.dir + this.dir) % 4;
+        }
+    }
+
+    checkInput(output) {
+        let targetX = output.x;
+        let targetY = output.y;
+        if (output.dir % 2 === 0) {
+            targetY += 1 - output.dir;
         }
         else {
-            canvasContext.rotate(Math.PI);
+            targetX += 2 - output.dir;
         }
-        canvasContext.drawImage(this.blueprint.sprite, -tileSize / 2, -tileSize / 2);
-        canvasContext.restore();
+        if (buildings[targetY][targetX].blueprint.inputs.find(
+            function(input) {
+                return input.x === targetX && input.y === targetY && input.dir === (dir + 2) % 4;
+            }
+        )) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    draw(canvasCtx) {
+        if (this.dir === 0) {
+            canvasCtx.drawImage(this.blueprint.sprite, this.XPos, this.YPos);
+            return;
+        }
+        let centerXOffset = this.blueprint.XScale * gridSize / 2;
+        let centerYOffset = this.blueprint.YScale * gridSize / 2;
+        canvasCtx.save();
+        canvasCtx.translate(this.XPos + centerXOffset, this.YPos + centerYOffset);
+        if (this.dir > 1) {
+            canvasCtx.scale(-1, 1);
+        }
+        if (this.dir === 2) {
+            canvasCtx.rotate(Math.PI);
+        }
+        else {
+            canvasCtx.rotate(-Math.PI / 2);
+        }
+        canvasCtx.drawImage(this.blueprint.sprite, -centerXOffset, -centerYOffset);
+        canvasCtx.restore();
+    }
+
+    update(buildings) {
+        if (currHandleTime === 0) {
+            // TODO
+        }
+        else {
+            currHandleTime = (currHandleTime + 1) % handleTime;
+        }
     }
 }
 
-let tileSize = 24;
-let tilesX = 30;
-let tilesY = 20;
+let gridSize = 24;
+let gridsX = 30;
+let gridsY = 20;
 
-let canvas = document.getElementById("game-canvas");
-let container = document.querySelector(".game-container");
-let canvasContext = canvas.getContext("2d");
-
-let canvasWidth = tileSize * tilesX;
-let canvasHeight = tileSize * tilesY;
+let canvasWidth = gridSize * gridsX;
+let canvasHeight = gridSize * gridsY;
 let canvasAr = canvasWidth / canvasHeight;
 
-let imageLocations = ["background.png", "building_belt.png", "building_vacuum_pump.png"];
+let imageLocs = ["background_tile.png", "building_belt.png", "building_vacuum_pump.png"];
 let images = [];
 let imagesLoaded = -1;
-let imagesTotal = imageLocations.length;
+let imagesTotal = imageLocs.length;
 
 let blueprints = [];
-
 let buildings = [];
 
 let mouseX = 0;
@@ -83,10 +152,25 @@ let mouseGridX = 0;
 let mouseGridY = 0;
 let mouseGridBackX = 0;
 let mouseGridBackY = 0;
+let previewDir = 0;
 
-let previewDirection = 0;
+let canvas = document.getElementById("game-canvas");
+let container = document.querySelector(".game-container");
+let canvasCtx = canvas.getContext("2d");
 
-function loadImages(resolve, reject) {
+async function main() {
+    await loadImgs();
+    initBlueprints();
+    initBuildings();
+    resizeCanvas();
+    updateCanvas();
+}
+
+function loadImgs() {
+    return new Promise(loadImgsImpl);
+}
+
+function loadImgsImpl(resolve, reject) {
     if (++imagesLoaded === imagesTotal) {
         console.log("[INFO] Loading complete");
         resolve();
@@ -94,18 +178,14 @@ function loadImages(resolve, reject) {
     }
     images.push(new Image());
     images[imagesLoaded].onload = function() {
-        loadImages(resolve, reject);
+        loadImgsImpl(resolve, reject);
     };
     images[imagesLoaded].onerror = function() {
-        console.log(`[ERROR] Failed to load ${imageLocations[imagesLoaded]}`);
-        reject(new Error(`Failed to load ${imageLocations[imagesLoaded]}`));
+        console.log(`[ERROR] Failed to load ${imageLocs[imagesLoaded]}`);
+        reject(new Error(`Failed to load ${imageLocs[imagesLoaded]}`));
     };
-    images[imagesLoaded].src = imageLocations[imagesLoaded];
-    console.log(`[TRACE] Loading ${imageLocations[imagesLoaded]} (${imagesLoaded + 1}/${imagesTotal})`);
-}
-
-function startLoad() {
-    return new Promise(loadImages);
+    images[imagesLoaded].src = imageLocs[imagesLoaded];
+    console.log(`[TRACE] Loading ${imageLocs[imagesLoaded]} (${imagesLoaded + 1}/${imagesTotal})`);
 }
 
 function initBlueprints() {
@@ -123,41 +203,41 @@ function initBlueprints() {
 }
 
 function initBuildings() {
-    for (let i = 0; i < tilesY; ++i) {
+    for (let i = 0; i < gridsY; ++i) {
         buildings.push([]);
-        for (let j = 0; j < tilesX; ++j) {
+        for (let j = 0; j < gridsX; ++j) {
             buildings[i].push(undefined);
         }
     }
 }
 
-function updateMousePosition(event) {
+function placeBuilding(event) {
+    buildings[mouseGridY][mouseGridX] = new Building(blueprints[0], mouseGridBackX, mouseGridBackY, previewDir);
+}
+
+function updateMousePos(event) {
     let rect = canvas.getBoundingClientRect();
     mouseX = (event.clientX - rect.left) * canvasWidth / rect.width;
     mouseY = (event.clientY - rect.top) * canvasHeight / rect.height;
-    mouseGridX = Math.floor(mouseX / tileSize);
-    mouseGridY = Math.floor(mouseY / tileSize);
-    mouseGridBackX = mouseGridX * tileSize;
-    mouseGridBackY = mouseGridY * tileSize;
+    mouseGridX = Math.floor(mouseX / gridSize);
+    mouseGridY = Math.floor(mouseY / gridSize);
+    mouseGridBackX = mouseGridX * gridSize;
+    mouseGridBackY = mouseGridY * gridSize;
 }
 
-function updatePreviewDirection(event) {
-    if (event.code === "ArrowDown") {
-        previewDirection = 0;
+function updatePreviewDir(event) {
+    if (event.key === "ArrowDown") {
+        previewDir = 0;
     }
-    else if (event.code === "ArrowRight") {
-        previewDirection = 1;
+    else if (event.key === "ArrowRight") {
+        previewDir = 1;
     }
-    else if (event.code === "ArrowUp") {
-        previewDirection = 2;
+    else if (event.key === "ArrowUp") {
+        previewDir = 2;
     }
-    else if (event.code === "ArrowLeft") {
-        previewDirection = 3;
+    else if (event.key === "ArrowLeft") {
+        previewDir = 3;
     }
-}
-
-function placeBuilding(event) {
-    buildings[mouseGridY][mouseGridX] = new Building(blueprints[0], mouseGridBackX, mouseGridBackY, previewDirection);
 }
 
 function resizeCanvas() {
@@ -181,34 +261,30 @@ function resizeCanvas() {
 }
 
 function updateCanvas() {
-    for (let i = 0; i < tilesY; ++i) {
-        for (let j = 0; j < tilesX; ++j) {
-            let iBack = i * tileSize;
-            let jBack = j * tileSize;
-            canvasContext.drawImage(images[0], jBack, iBack);
+    for (let i = 0; i < gridsY; ++i) {
+        for (let j = 0; j < gridsX; ++j) {
+            let iBack = i * gridSize;
+            let jBack = j * gridSize;
+            canvasCtx.drawImage(images[0], jBack, iBack);
+        }
+    }
+    for (let i = 0; i < gridsY; ++i) {
+        for (let j = 0; j < gridsX; ++j) {
             if (buildings[i][j]) {
-                buildings[i][j].draw(canvasContext);
+                buildings[i][j].draw(canvasCtx);
             }
         }
     }
-    let previewBuilding = new Building(blueprints[0], mouseGridBackX, mouseGridBackY, previewDirection);
-    canvasContext.globalAlpha = 0.5;
-    previewBuilding.draw(canvasContext);
-    canvasContext.globalAlpha = 1;
+    let previewBuilding = new Building(blueprints[0], mouseGridBackX, mouseGridBackY, previewDir);
+    canvasCtx.globalAlpha = 0.5;
+    previewBuilding.draw(canvasCtx);
+    canvasCtx.globalAlpha = 1;
     requestAnimationFrame(updateCanvas);
-}
-
-async function main() {
-    await startLoad();
-    initBlueprints();
-    initBuildings();
-    resizeCanvas();
-    updateCanvas();
 }
 
 main();
 
-window.addEventListener("resize", resizeCanvas);
-window.addEventListener("mousemove", updateMousePosition);
-window.addEventListener("keydown", updatePreviewDirection);
 window.addEventListener("click", placeBuilding);
+window.addEventListener("keydown", updatePreviewDir);
+window.addEventListener("mousemove", updateMousePos);
+window.addEventListener("resize", resizeCanvas);

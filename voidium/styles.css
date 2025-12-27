@@ -1,7 +1,7 @@
 body {
     background-color: black;
     display: grid;
-    grid-template-columns: 80vw 20vw;
+    grid-template-columns: 75vw 25vw;
     margin: 0;
 }
 
@@ -21,9 +21,25 @@ body {
 }
 
 .game-sidebar {
-    background-color: lime;
+    display: grid;
+    grid-template-rows: 20vh 80vh;
+}
+
+.game-info {
+    background-color: white;
+    text-align: center;
+    font-family: "IM FELL Double Pica";
+}
+
+.game-shop {
+    background-color: gray;
 }
 
 .game-narrator {
     background-color: blue;
+}
+
+@font-face {
+    font-family: "IM FELL Double Pica";
+    src: url("im-fell-double-pica.roman.woff2") format("woff2");
 }

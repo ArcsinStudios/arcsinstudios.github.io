@@ -81,25 +81,65 @@ class Building {
         if (dir === 0) {
             return;
         }
-        let angle = this.dir * Math.PI / 2;
+        let angle = -this.dir * Math.PI / 2;
+        let cos = Math.cos(angle);
+        let sin = Math.sin(angle);
         if (dir !== 2) {
             let temp = this.blueprint.XScale;
             this.blueprint.XScale = this.blueprint.YScale;
             this.blueprint.YScale = temp;
         }
         for (let input of this.blueprint.inputs) {
-            let _x = input.x;
-            let _y = input.y;
-            input.x = Math.round(_x * Math.cos(angle) - _y * Math.sin(angle));
-            input.y = Math.round(_x * Math.sin(angle) + _y * Math.cos(angle));
+            let x = input.x;
+            let y = input.y;
+            input.x = Math.round(x * cos - y * sin);
+            input.y = Math.round(x * sin + y * cos);
             input.dir = (input.dir + this.dir) % 4;
         }
         for (let output of this.blueprint.outputs) {
-            let _x = output.x;
-            let _y = output.y;
-            output.x = Math.round(_x * Math.cos(angle) - _y * Math.sin(angle));
-            output.y = Math.round(_x * Math.sin(angle) + _y * Math.cos(angle));
+            let x = output.x;
+            let y = output.y;
+            output.x = Math.round(x * cos - y * sin);
+            output.y = Math.round(x * sin + y * cos);
             output.dir = (output.dir + this.dir) % 4;
+        }
+        while (
+            this.blueprint.inputs.find(
+                function(input) {
+                    return input.x < 0;
+                }
+            ) ||
+            this.blueprint.outputs.find(
+                function(output) {
+                    return output.x < 0;
+                }
+            )
+        ) {
+            for (let input of this.blueprint.inputs) {
+                ++input.x;
+            }
+            for (let output of this.blueprint.outputs) {
+                ++output.x;
+            }
+        }
+        while (
+            this.blueprint.inputs.find(
+                function(input) {
+                    return input.y < 0;
+                }
+            ) ||
+            this.blueprint.outputs.find(
+                function(output) {
+                    return output.y < 0;
+                }
+            )
+        ) {
+            for (let input of this.blueprint.inputs) {
+                ++input.y;
+            }
+            for (let output of this.blueprint.outputs) {
+                ++output.y;
+            }
         }
     }
 
@@ -203,7 +243,7 @@ class Building {
                 while (input.buffer.length > 0 && total > this.blueprint.content) {
                     let temp = input.buffer.pop();
                     --total;
-                    if (outputPos.blueprint.producer || outputPos.contentItems.length === outputPos.blueprint.content) {
+                    if (outputPos.blueprint.producer) {
                         break;
                     }
                     outputPos.contentItems.push(temp);
@@ -211,6 +251,10 @@ class Building {
                 outputPos.update1();
             }
         }
+    }
+
+    update2() {
+        this.updateStage = 2;
         for (let input of this.blueprint.inputs) {
             while (input.buffer.length > 0) {
                 this.contentItems.push(input.buffer.pop());
@@ -233,7 +277,7 @@ let canvasWidth = gridSize * gridsX;
 let canvasHeight = gridSize * gridsY;
 let canvasAr = canvasWidth / canvasHeight;
 
-let imageLocs = ["background_tile.png", "building_belt.png", "building_vacuum_pump.png", "item_voidium.png"];
+let imageLocs = ["background_tile.png", "building_belt.png", "building_vacuum_pump.png", "item_voidium.png", "building_mint.png"];
 let images = [];
 let imagesLoaded = -1;
 let imagesTotal = imageLocs.length;
@@ -253,7 +297,18 @@ let previewDir = 0;
 
 let canvas = document.getElementById("game-canvas");
 let container = document.querySelector(".game-container");
+let info = document.querySelector(".game-info");
 let canvasCtx = canvas.getContext("2d");
+
+let voidium = 0;
+
+function iterHelper(func) {
+    for (let i = 0; i < gridsY; ++i) {
+        for (let j = 0; j < gridsX; ++j) {
+            func(i, j);
+        }
+    }
+}
 
 async function main() {
     await loadImgs();
@@ -261,7 +316,13 @@ async function main() {
     initBlueprints();
     initBuildings();
     resizeCanvas();
+    update();
+}
+
+function update() {
     updateCanvas();
+    updateUI();
+    requestAnimationFrame(update);
 }
 
 function loadImgs() {
@@ -291,36 +352,70 @@ function initItems() {
 }
 
 function initBlueprints() {
-    blueprints.push(new Blueprint(1, 1, false, false, 1, [new Input(0, 0, 1), new Input(0, 0, 2), new Input(0, 0, 3)], [new Output(0, 0, 0)], 30,
-    function() {
-        if (this.contentItems.length === 0) {
-            return;
-        }
-        for (let output of this.blueprint.outputs) {
-            let input = this.checkInput(output);
-            if (input) {
-                input.buffer.push(this.contentItems.pop());
-            }
-        }
-    },
-    images[1]));
-    blueprints.push(new Blueprint(1, 2, true, false, 1, [], [new Output(0, 1, 0)], 120,
-    function() {
-        for (let output of this.blueprint.outputs) {
-            let inputPos = this.checkOppPos(output)[0];
-            if (!inputPos) {
-                return;
-            }
-            if (inputPos.contentItems.length === inputPos.blueprint.content) {
-                return;
-            }
-            let input = this.checkInput(output);
-            if (input) {
-                input.buffer.push(items[0].duplicate());
-            }
-        }
-    },
-    images[2]));
+    blueprints.push(
+        new Blueprint(
+            1, 1,
+            false, false,
+            1,
+            [new Input(0, 0, 1), new Input(0, 0, 2), new Input(0, 0, 3)], [new Output(0, 0, 0)],
+            30,
+            function() {
+                if (this.contentItems.length === 0) {
+                    return;
+                }
+                for (let output of this.blueprint.outputs) {
+                    let input = this.checkInput(output);
+                    if (input) {
+                        input.buffer.push(this.contentItems.pop());
+                    }
+                }
+            },
+            images[1]
+        )
+    );
+    blueprints.push(
+        new Blueprint(
+            1, 2,
+            true, false,
+            1,
+            [], [new Output(0, 1, 0)],
+            120,
+            function() {
+                for (let output of this.blueprint.outputs) {
+                    let inputPos = this.checkOppPos(output)[0];
+                    if (!inputPos) {
+                        return;
+                    }
+                    if (inputPos.contentItems.length === inputPos.blueprint.content) {
+                        return;
+                    }
+                    let input = this.checkInput(output);
+                    if (input) {
+                        input.buffer.push(items[0].duplicate());
+                    }
+                }
+            },
+            images[2]
+        )
+    );
+    blueprints.push(
+        new Blueprint(
+            2, 2,
+            false, true,
+            8,
+            [new Input(0, 0, 2), new Input(0, 0, 3), new Input(1, 0, 1), new Input(1, 0, 2), new Input(0, 1, 0), new Input(0, 1, 3), new Input(1, 1, 0), new Input(1, 1, 1)], [],
+            1,
+            function() {
+                for (let item of this.contentItems) {
+                    if (item.name === "Voidium") {
+                        ++voidium;
+                    }
+                }
+                this.contentItems = [];
+            },
+            images[4]
+        )
+    );
 }
 
 function initBuildings() {
@@ -333,15 +428,44 @@ function initBuildings() {
 }
 
 function placeBuilding(event) {
-    for (let i = 0; i < blueprints[previewNum].YScale; ++i) {
-        for (let j = 0; j < blueprints[previewNum].XScale; ++j) {
+    if (mouseGridX >= gridsX || mouseGridY >= gridsY) {
+        return;
+    }
+    if (buildings[mouseGridY][mouseGridX]) {
+        return;
+    }
+    buildings[mouseGridY][mouseGridX] = new Building(blueprints[previewNum], mouseGridBackX, mouseGridBackY, previewDir);
+    for (let i = 0; i < buildings[mouseGridY][mouseGridX].blueprint.YScale; ++i) {
+        for (let j = 0; j < buildings[mouseGridY][mouseGridX].blueprint.XScale; ++j) {
             if (i === 0 && j === 0) {
-                buildings[mouseGridY][mouseGridX] = new Building(blueprints[previewNum], mouseGridBackX, mouseGridBackY, previewDir);
                 continue;
             }
             buildings[mouseGridY + i][mouseGridX + j] = new BuildingPlaceholder(buildings[mouseGridY][mouseGridX]);
         }
     }
+}
+
+function removeBuilding(event) {
+    event.preventDefault();
+    if (mouseGridX >= gridsX || mouseGridY >= gridsY) {
+        return;
+    }
+    let building = buildings[mouseGridY][mouseGridX];
+    if (!building) {
+        return;
+    }
+    if (building instanceof BuildingPlaceholder) {
+        building = building.origin;
+    }
+    for (let i = 0; i < building.blueprint.YScale; ++i) {
+        for (let j = 0; j < building.blueprint.XScale; ++j) {
+            if (i === 0 && j === 0) {
+                continue;
+            }
+            buildings[building.YGridPos + i][building.XGridPos + j] = null;
+        }
+    }
+    buildings[building.YGridPos][building.XGridPos] = null;
 }
 
 function updateMousePos(event) {
@@ -369,7 +493,7 @@ function updatePreview(event) {
     }
     else {
         let num = parseInt(event.key);
-        if (!Number.isNaN(num)) {
+        if (!Number.isNaN(num) && num < blueprints.length) {
             previewNum = num;
         }
     }
@@ -396,44 +520,45 @@ function resizeCanvas() {
 }
 
 function updateCanvas() {
-    for (let i = 0; i < gridsY; ++i) {
-        for (let j = 0; j < gridsX; ++j) {
-            let iBack = i * gridSize;
-            let jBack = j * gridSize;
-            canvasCtx.drawImage(images[0], jBack, iBack);
+    iterHelper(function(i, j) {
+        let iBack = i * gridSize;
+        let jBack = j * gridSize;
+        canvasCtx.drawImage(images[0], jBack, iBack);
+    });
+    iterHelper(function(i, j) {
+        if (buildings[i][j] instanceof Building) {
+            buildings[i][j].draw(canvasCtx);
         }
-    }
-    for (let i = 0; i < gridsY; ++i) {
-        for (let j = 0; j < gridsX; ++j) {
-            if (buildings[i][j] && buildings[i][j] instanceof Building) {
-                buildings[i][j].draw(canvasCtx);
-            }
+    });
+    iterHelper(function(i, j) {
+        if (buildings[i][j] instanceof Building) {
+            buildings[i][j].update0();
         }
-    }
-    for (let i = 0; i < gridsY; ++i) {
-        for (let j = 0; j < gridsX; ++j) {
-            if (buildings[i][j] && buildings[i][j] instanceof Building) {
-                buildings[i][j].update0();
-            }
+    });
+    iterHelper(function(i, j) {
+        if (buildings[i][j] instanceof Building) {
+            buildings[i][j].update1();
         }
-    }
-    for (let i = 0; i < gridsY; ++i) {
-        for (let j = 0; j < gridsX; ++j) {
-            if (buildings[i][j] && buildings[i][j] instanceof Building) {
-                buildings[i][j].update1();
-            }
+    });
+    iterHelper(function(i, j) {
+        if (buildings[i][j] instanceof Building) {
+            buildings[i][j].update2();
         }
-    }
+    });
     let previewBuilding = new Building(blueprints[previewNum], mouseGridBackX, mouseGridBackY, previewDir);
     canvasCtx.globalAlpha = 0.5;
     previewBuilding.draw(canvasCtx);
     canvasCtx.globalAlpha = 1;
-    requestAnimationFrame(updateCanvas);
+}
+
+function updateUI() {
+    info.innerHTML = `<p>Cosmodox Manufacturing Ltd.<br>Prod. Line I</p><h1>${voidium} V¤</h1>`;
 }
 
 main();
 
 window.addEventListener("click", placeBuilding);
+window.addEventListener("contextmenu", removeBuilding);
 window.addEventListener("keydown", updatePreview);
 window.addEventListener("mousemove", updateMousePos);
 window.addEventListener("resize", resizeCanvas);

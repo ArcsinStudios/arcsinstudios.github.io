@@ -41,9 +41,8 @@ let blueOrPurple = document.getElementById("blue-or-purple");
 /* ^^^ ELEMENT ^^^ */
 
 /* vvv PAGE vvv */
-let currPage = 1;
-let minPage = 1;
-let maxPage = 3;
+let maxPage;
+let currPage;
 let pages = [];
 /* ^^^ PAGE ^^^ */
 
@@ -222,14 +221,18 @@ function genFooter() {
 
 /* vvv PAGE vvv */
 function initPage() {
-    for (let i = minPage; i <= maxPage; ++i) {
-        pages.push(document.getElementById("page" + i));
+    let page = document.getElementById("page0");
+    for (let i = 1; page; ++i) {
+        pages.push(page);
+        page = document.getElementById(`page${i}`);
     }
+    maxPage = pages.length - 1;
+    currPage = maxPage;
 }
 
 function showPage() {
-    for (let i = minPage - 1; i < maxPage; ++i) {
-        if (i + 1 != currPage) {
+    for (let i = 0; i <= maxPage; ++i) {
+        if (i != currPage) {
             pages[i].style.display = "none";
         }
         else {
@@ -239,14 +242,14 @@ function showPage() {
 }
 
 function prevPage() {
-    if (!(currPage <= minPage)) {
+    if (currPage > 0) {
         --currPage;
     }
     showPage();
 }
 
 function nextPage() {
-    if (!(currPage >= maxPage)) {
+    if (currPage < maxPage) {
         ++currPage;
     }
     showPage();

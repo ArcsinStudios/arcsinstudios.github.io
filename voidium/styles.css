@@ -13,8 +13,6 @@ body {
 .crt0 {
     --scanline-thickness: 20%;
     --gradient-brightness: 0.2;
-    content: " ";
-    display: block;
     position: absolute;
     top: 0;
     left: 0;
@@ -37,9 +35,6 @@ body {
 }
 
 .crt1 {
-    --gradient-position: -14%;
-    content: " ";
-    display: block;
     position: absolute;
     top: 0;
     left: 0;

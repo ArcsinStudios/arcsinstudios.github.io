@@ -10,6 +10,55 @@ body {
     grid-template-rows: 62vh 38vh;
 }
 
+.crt0 {
+    --scanline-thickness: 20%;
+    --gradient-brightness: 0.2;
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0) calc(100% - var(--scanline-thickness)),
+            rgba(0, 0, 0, 0.25) var(--scanline-thickness)
+        ),
+        linear-gradient(
+            to right,
+            rgba(255, 0, 0, var(--gradient-brightness)),
+            rgba(0, 255, 0, calc(0.5 * var(--gradient-brightness))),
+            rgba(0, 0, 255, calc(1.2 * var(--gradient-brightness)))
+        );
+    z-index: 2;
+    background-size: 100vw 3px, 3px 100vh;
+    pointer-events: none;
+}
+
+.crt1 {
+    --gradient-position: -14%;
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0) var(--gradient-position),
+            rgba(0, 0, 0, 0.5) calc(var(--gradient-position) + 2%),
+            rgba(0, 0, 0, 0.5) calc(var(--gradient-position) + 12%),
+            rgba(0, 0, 0, 0) calc(var(--gradient-position) + 14%)
+        );
+    z-index: 1;
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    animation: roll 4s linear infinite;
+}
+
 .game-container {
     display: flex;
     justify-content: center;
@@ -42,4 +91,19 @@ body {
 @font-face {
     font-family: "IM FELL Double Pica";
     src: url("im-fell-double-pica.roman.woff2") format("woff2");
+}
+
+@property --gradient-position {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: -14%;
+}
+
+@keyframes roll {
+    0% {
+        --gradient-position: -14%;
+    }
+    100% {
+        --gradient-position: 100%;
+    }
 }

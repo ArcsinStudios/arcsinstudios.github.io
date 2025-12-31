@@ -29,32 +29,22 @@ class Output {
 }
 
 class Blueprint {
-    constructor(XScale, YScale, producer, consumer, content, inputs, outputs, handleTime, handle, sprite) {
+    constructor(XScale, YScale, acceptReturn, displayItems, content, inputs, outputs, handleTime, handle, sprite) {
         this.XScale = XScale;
         this.YScale = YScale;
-        this.producer = producer;
-        this.consumer = consumer;
+        this.acceptReturn = acceptReturn;
+        this.displayItems = displayItems;
         this.content = content;
-        if (this.producer) {
-            this.inputs = [];
-        }
-        else {
-            this.inputs = inputs.map(
-                function(input) {
-                    return new Input(input.x, input.y, input.dir);
-                }
-            );
-        }
-        if (this.consumer) {
-            this.outputs = [];
-        }
-        else {
-            this.outputs = outputs.map(
-                function(output) {
-                    return new Output(output.x, output.y, output.dir);
-                }
-            );
-        }
+        this.inputs = inputs.map(
+            function(input) {
+                return new Input(input.x, input.y, input.dir);
+            }
+        );
+        this.outputs = outputs.map(
+            function(output) {
+                return new Output(output.x, output.y, output.dir);
+            }
+        );
         this.handleTime = handleTime;
         this.handle = handle;
         this.sprite = sprite;
@@ -65,9 +55,11 @@ class Building {
     constructor(blueprint, XPos, YPos, dir) {
         this.blueprint = new Blueprint(
             blueprint.XScale, blueprint.YScale,
-            blueprint.producer, blueprint.consumer,
-            blueprint.content, blueprint.inputs, blueprint.outputs,
-            blueprint.handleTime, blueprint.handle.bind(this),
+            blueprint.acceptReturn, blueprint.displayItems,
+            blueprint.content,
+            blueprint.inputs, blueprint.outputs,
+            blueprint.handleTime,
+            blueprint.handle.bind(this),
             blueprint.sprite
         );
         this.XPos = XPos;
@@ -103,43 +95,31 @@ class Building {
             output.y = Math.round(x * sin + y * cos);
             output.dir = (output.dir + this.dir) % 4;
         }
-        while (
-            this.blueprint.inputs.find(
-                function(input) {
-                    return input.x < 0;
-                }
-            ) ||
-            this.blueprint.outputs.find(
-                function(output) {
-                    return output.x < 0;
-                }
-            )
-        ) {
-            for (let input of this.blueprint.inputs) {
-                ++input.x;
+        let minX = 0;
+        let minY = 0;
+        for (let input of this.blueprint.inputs) {
+            if (input.x < minX) {
+                minX = input.x;
             }
-            for (let output of this.blueprint.outputs) {
-                ++output.x;
+            if (input.y < minY) {
+                minY = input.y;
             }
         }
-        while (
-            this.blueprint.inputs.find(
-                function(input) {
-                    return input.y < 0;
-                }
-            ) ||
-            this.blueprint.outputs.find(
-                function(output) {
-                    return output.y < 0;
-                }
-            )
-        ) {
-            for (let input of this.blueprint.inputs) {
-                ++input.y;
+        for (let output of this.blueprint.outputs) {
+            if (output.x < minX) {
+                minX = output.x;
             }
-            for (let output of this.blueprint.outputs) {
-                ++output.y;
+            if (output.y < minY) {
+                minY = output.y;
             }
+        }
+        for (let input of this.blueprint.inputs) {
+            input.x -= minX;
+            input.y -= minY;
+        }
+        for (let output of this.blueprint.outputs) {
+            output.x -= minX;
+            output.y -= minY;
         }
     }
 
@@ -212,17 +192,18 @@ class Building {
             }
             canvasCtx.restore();
         }
-        if (this.contentItems.length !== 0) {
-            canvasCtx.drawImage(this.contentItems[0].sprite, this.XPos, this.YPos);
+        if (!this.blueprint.displayItems) {
+            return;
+        }
+        for (let i = 0; i < Math.min(this.contentItems.length, this.blueprint.XScale * this.blueprint.YScale); ++i) {
+            canvasCtx.drawImage(this.contentItems[i].sprite, this.XPos + i % this.blueprint.XScale * gridSize, this.YPos + Math.floor(i / this.blueprint.XScale) * gridSize);
         }
     }
 
     update0() {
         this.updateStage = 0;
         this.currHandleTime = (this.currHandleTime + 1) % this.blueprint.handleTime;
-        if (this.currHandleTime === 0) {
-            this.blueprint.handle();
-        }
+        this.blueprint.handle();
     }
 
     update1() {
@@ -243,8 +224,8 @@ class Building {
                 while (input.buffer.length > 0 && total > this.blueprint.content) {
                     let temp = input.buffer.pop();
                     --total;
-                    if (outputPos.blueprint.producer) {
-                        break;
+                    if (!outputPos.blueprint.acceptReturn) {
+                        continue;
                     }
                     outputPos.contentItems.push(temp);
                 }
@@ -277,7 +258,19 @@ let canvasWidth = gridSize * gridsX;
 let canvasHeight = gridSize * gridsY;
 let canvasAr = canvasWidth / canvasHeight;
 
-let imageLocs = ["background_tile.png", "building_belt.png", "building_vacuum_pump.png", "item_voidium.png", "building_mint.png"];
+let imageLocs = [
+    "background_tile.png",
+    "building_belt.png",
+    "building_vacuum_pump.png",
+    "item_voidium.png",
+    "building_mint.png",
+    "building_buffer.png",
+    "building_centrifuge.png",
+    "item_airium.png",
+    "item_earthium.png",
+    "item_firium.png",
+    "item_waterium.png"
+];
 let images = [];
 let imagesLoaded = -1;
 let imagesTotal = imageLocs.length;
@@ -296,11 +289,17 @@ let previewNum = 0;
 let previewDir = 0;
 
 let canvas = document.getElementById("game-canvas");
+let crt0 = document.getElementById("crt0");
+let crt1 = document.getElementById("crt1");
 let container = document.querySelector(".game-container");
 let info = document.querySelector(".game-info");
 let canvasCtx = canvas.getContext("2d");
 
 let voidium = 0;
+let airium = 0;
+let earthium = 0;
+let firium = 0;
+let waterium = 0;
 
 function iterHelper(func) {
     for (let i = 0; i < gridsY; ++i) {
@@ -349,17 +348,24 @@ function loadImgsImpl(resolve, reject) {
 
 function initItems() {
     items.push(new Item("Voidium", images[3]));
+    items.push(new Item("Airium", images[7]));
+    items.push(new Item("Earthium", images[8]));
+    items.push(new Item("Firium", images[9]));
+    items.push(new Item("Waterium", images[10]));
 }
 
 function initBlueprints() {
     blueprints.push(
         new Blueprint(
             1, 1,
-            false, false,
+            true, true,
             1,
             [new Input(0, 0, 1), new Input(0, 0, 2), new Input(0, 0, 3)], [new Output(0, 0, 0)],
             30,
             function() {
+                if (this.currHandleTime % this.blueprint.handleTime !== 0) {
+                    return;
+                }
                 if (this.contentItems.length === 0) {
                     return;
                 }
@@ -376,18 +382,21 @@ function initBlueprints() {
     blueprints.push(
         new Blueprint(
             1, 2,
-            true, false,
+            false, false,
             1,
             [], [new Output(0, 1, 0)],
             120,
             function() {
+                if (this.currHandleTime % this.blueprint.handleTime !== 0) {
+                    return;
+                }
                 for (let output of this.blueprint.outputs) {
                     let inputPos = this.checkOppPos(output)[0];
                     if (!inputPos) {
-                        return;
+                        continue;
                     }
                     if (inputPos.contentItems.length === inputPos.blueprint.content) {
-                        return;
+                        continue;
                     }
                     let input = this.checkInput(output);
                     if (input) {
@@ -401,19 +410,91 @@ function initBlueprints() {
     blueprints.push(
         new Blueprint(
             2, 2,
-            false, true,
+            true, false,
             8,
             [new Input(0, 0, 2), new Input(0, 0, 3), new Input(1, 0, 1), new Input(1, 0, 2), new Input(0, 1, 0), new Input(0, 1, 3), new Input(1, 1, 0), new Input(1, 1, 1)], [],
             1,
             function() {
+                if (this.currHandleTime % this.blueprint.handleTime !== 0) {
+                    return;
+                }
                 for (let item of this.contentItems) {
                     if (item.name === "Voidium") {
                         ++voidium;
+                    }
+                    else if (item.name === "Airium") {
+                        ++airium;
+                    }
+                    else if (item.name === "Earthium") {
+                        ++earthium;
+                    }
+                    else if (item.name === "Firium") {
+                        ++firium;
+                    }
+                    else if (item.name === "Waterium") {
+                        ++waterium;
                     }
                 }
                 this.contentItems = [];
             },
             images[4]
+        )
+    );
+    blueprints.push(
+        new Blueprint(
+            2, 1,
+            true, true,
+            20,
+            [new Input(0, 0, 2), new Input(1, 0, 2)], [new Output(0, 0, 0)],
+            1,
+            function() {
+                if (this.currHandleTime % this.blueprint.handleTime !== 0) {
+                    return;
+                }
+                for (let output of this.blueprint.outputs) {
+                    let inputPos = this.checkOppPos(output)[0];
+                    if (!inputPos) {
+                        continue;
+                    }
+                    let cnt = Math.min(this.contentItems.length, inputPos.blueprint.content - inputPos.contentItems.length);
+                    let input = this.checkInput(output);
+                    for (let i = 0; i < cnt; ++i) {
+                        input.buffer.push(this.contentItems.pop());
+                    }
+                }
+            },
+            images[5]
+        )
+    );
+    blueprints.push(
+        new Blueprint(
+            2, 2,
+            false, false,
+            1,
+            [new Input(0, 0, 2)], [new Output(0, 1, 0)],
+            240,
+            function() {
+                if (this.contentItems.length === 0) {
+                    return;
+                }
+                if (this.contentItems[0].name !== "Voidium") {
+                    return;
+                }
+                let quarter = Math.round(this.blueprint.handleTime / 4);
+                if (this.currHandleTime % quarter !== 0) {
+                    return;
+                }
+                let inputPos = this.checkOppPos(this.blueprint.outputs[0])[0];
+                if (!inputPos) {
+                    return;
+                }
+                let input = this.checkInput(this.blueprint.outputs[0]);
+                input.buffer.push(items[(this.currHandleTime / quarter + 3) % 4 + 1].duplicate());
+                if (this.currHandleTime === 0) {
+                    this.contentItems = [];
+                }
+            },
+            images[6]
         )
     );
 }
@@ -440,6 +521,17 @@ function placeBuilding(event) {
             if (i === 0 && j === 0) {
                 continue;
             }
+            if (buildings[mouseGridY + i][mouseGridX + j]) {
+                buildings[mouseGridY][mouseGridX] = null;
+                return;
+            }
+        }
+    }
+    for (let i = 0; i < buildings[mouseGridY][mouseGridX].blueprint.YScale; ++i) {
+        for (let j = 0; j < buildings[mouseGridY][mouseGridX].blueprint.XScale; ++j) {
+            if (i === 0 && j === 0) {
+                continue;
+            }
             buildings[mouseGridY + i][mouseGridX + j] = new BuildingPlaceholder(buildings[mouseGridY][mouseGridX]);
         }
     }
@@ -459,13 +551,9 @@ function removeBuilding(event) {
     }
     for (let i = 0; i < building.blueprint.YScale; ++i) {
         for (let j = 0; j < building.blueprint.XScale; ++j) {
-            if (i === 0 && j === 0) {
-                continue;
-            }
             buildings[building.YGridPos + i][building.XGridPos + j] = null;
         }
     }
-    buildings[building.YGridPos][building.XGridPos] = null;
 }
 
 function updateMousePos(event) {
@@ -490,6 +578,19 @@ function updatePreview(event) {
     }
     else if (event.key === "ArrowLeft") {
         previewDir = 3;
+    }
+    else if (event.key === "q" || event.key === "Q") {
+        crt0.classList.toggle("crt0");
+        if (crt0.classList.contains("crt0")) {
+            return;
+        }
+        crt1.classList.remove("crt1");
+    }
+    else if (event.key === "w" || event.key === "W") {
+        if (!crt0.classList.contains("crt0")) {
+            return;
+        }
+        crt1.classList.toggle("crt1");
     }
     else {
         let num = parseInt(event.key);
@@ -552,7 +653,7 @@ function updateCanvas() {
 }
 
 function updateUI() {
-    info.innerHTML = `<p>Cosmodox Manufacturing Ltd.<br>Prod. Line I</p><h1>${voidium} V¤</h1>`;
+    info.innerHTML = `<p>Cosmodox Manufacturing Ltd.<br>Prod. Line I</p><h2>${voidium} V¤ / ${airium} A¤ / ${earthium} E¤ / ${firium} F¤ / ${waterium} W¤</h2>`;
 }
 
 main();

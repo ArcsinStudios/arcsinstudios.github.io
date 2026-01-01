@@ -28,9 +28,16 @@ body {
             rgba(255, 0, 0, var(--gradient-brightness)),
             rgba(0, 255, 0, calc(0.5 * var(--gradient-brightness))),
             rgba(0, 0, 255, calc(1.2 * var(--gradient-brightness)))
+        ),
+        radial-gradient(
+            ellipse at center,
+            rgba(255, 255, 255, 0.3),
+            rgba(0, 0, 0, 0.2) 80%,
+            black
         );
     z-index: 2;
-    background-size: 100vw 3px, 3px 100vh;
+    background-size: 100vw 3px, 3px 100vh, 100vw 120vh;
+    background-position: center center;
     pointer-events: none;
 }
 
@@ -88,12 +95,6 @@ body {
     src: url("im-fell-double-pica.roman.woff2") format("woff2");
 }
 
-@property --gradient-position {
-    syntax: "<percentage>";
-    inherits: false;
-    initial-value: -14%;
-}
-
 @keyframes roll {
     0% {
         --gradient-position: -14%;
@@ -101,4 +102,10 @@ body {
     100% {
         --gradient-position: 100%;
     }
+}
+
+@property --gradient-position {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: -14%;
 }

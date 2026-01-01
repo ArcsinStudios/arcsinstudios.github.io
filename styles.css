@@ -263,8 +263,8 @@ ul {
     z-index: 1;
  }
  
-.glitch:before,
-.glitch:after {
+.glitch::before,
+.glitch::after {
     display: block;
     content: attr(data-text);
     position: absolute;
@@ -273,19 +273,19 @@ ul {
     opacity: 0.8;
 }
  
-.glitch:before {
-    animation: glitch-it 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+.glitch::before {
+    animation: glitch-anim 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
     color: cyan;
     z-index: -1;
 }
  
-.glitch:after {
-    animation: glitch-it 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+.glitch::after {
+    animation: glitch-anim 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
     color: red;
     z-index: -2;
 }
  
-@keyframes glitch-it {
+@keyframes glitch-anim {
     from {
        transform: translate(0);
     }
@@ -298,4 +298,16 @@ ul {
     to {
        transform: translate(0);
     }
+}
+
+@property --start-stop {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: transparent;
+}
+
+@property --end-stop {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: transparent;
 }

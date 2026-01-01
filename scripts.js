@@ -1,22 +1,5 @@
 "use strict";
 
-/* vvv CSS vvv */
-if (window.CSS) {
-    CSS.registerProperty({
-        name: "--start-stop",
-        syntax: "<color>",
-        inherits: false,
-        initialValue: "transparent"
-    });
-    CSS.registerProperty({
-        name: "--end-stop",
-        syntax: "<color>",
-        inherits: false,
-        initialValue: "transparent"
-    });
-}
-/* ^^^ CSS ^^^ */
-
 /* vvv GENERATION vvv */
 genLangBtn();
 genThemeBtn();
@@ -228,6 +211,7 @@ function initPage() {
     }
     maxPage = pages.length - 1;
     currPage = maxPage;
+    showPage();
 }
 
 function showPage() {

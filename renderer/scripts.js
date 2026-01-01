@@ -106,39 +106,45 @@ function moveObjectZ(object, dist) {
 
 function rotateObjectXY(object, deg) {
     let rad = deg * Math.PI / 180;
+    let cos = Math.cos(rad);
+    let sin = Math.sin(rad);
     let center = getObjectCenter(object);
     for (let face of object.faces) {
         for (let point of face.points) {
             let XBack = point.x - center.x;
             let YBack = point.y - center.y;
-            point.x = XBack * Math.cos(rad) - YBack * Math.sin(rad) + center.x;
-            point.y = XBack * Math.sin(rad) + YBack * Math.cos(rad) + center.y;
+            point.x = XBack * cos - YBack * sin + center.x;
+            point.y = XBack * sin + YBack * cos + center.y;
         }
     }
 }
 
 function rotateObjectYZ(object, deg) {
     let rad = deg * Math.PI / 180;
+    let cos = Math.cos(rad);
+    let sin = Math.sin(rad);
     let center = getObjectCenter(object);
     for (let face of object.faces) {
         for (let point of face.points) {
             let YBack = point.y - center.y;
             let ZBack = point.z - center.z;
-            point.y = YBack * Math.cos(rad) - ZBack * Math.sin(rad) + center.y;
-            point.z = YBack * Math.sin(rad) + ZBack * Math.cos(rad) + center.z;
+            point.y = YBack * cos - ZBack * sin + center.y;
+            point.z = YBack * sin + ZBack * cos + center.z;
         }
     }
 }
 
 function rotateObjectZX(object, deg) {
     let rad = deg * Math.PI / 180;
+    let cos = Math.cos(rad);
+    let sin = Math.sin(rad);
     let center = getObjectCenter(object);
     for (let face of object.faces) {
         for (let point of face.points) {
             let ZBack = point.z - center.z;
             let XBack = point.x - center.x;
-            point.z = ZBack * Math.cos(rad) - XBack * Math.sin(rad) + center.z;
-            point.x = ZBack * Math.sin(rad) + XBack * Math.cos(rad) + center.x;
+            point.z = ZBack * cos - XBack * sin + center.z;
+            point.x = ZBack * sin + XBack * cos + center.x;
         }
     }
 }

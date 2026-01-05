@@ -35,16 +35,8 @@ class Blueprint {
         this.acceptReturn = acceptReturn;
         this.displayItems = displayItems;
         this.content = content;
-        this.inputs = inputs.map(
-            function(input) {
-                return new Input(input.x, input.y, input.dir);
-            }
-        );
-        this.outputs = outputs.map(
-            function(output) {
-                return new Output(output.x, output.y, output.dir);
-            }
-        );
+        this.inputs = structuredClone(inputs);
+        this.outputs = structuredClone(outputs);
         this.handleTime = handleTime;
         this.handle = handle;
         this.sprite = sprite;
